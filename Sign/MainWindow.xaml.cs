@@ -26,21 +26,17 @@ namespace Sign
 
         
 
-        private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (this.WindowState == System.Windows.WindowState.Normal)
-            {
-                this.WindowState = System.Windows.WindowState.Maximized;
-            }
-            else
-            {
-                this.WindowState = System.Windows.WindowState.Normal;
-            }
-        }
+        
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 win = new Window1();
+            win.ShowDialog();
         }
     }
 }

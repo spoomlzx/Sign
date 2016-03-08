@@ -4,63 +4,63 @@
                     xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
                     xmlns:local="clr-namespace:Sign">
 
+    <!--图标的path资源-->
     <sys:String x:Key="maximum">F1 M 16.559,14.250 L 0.937,14.250 C 0.558,14.250 0.250,13.942 0.250,13.563 L 0.250,0.937 C 0.250,0.558 0.558,0.250 0.937,0.250 L 16.559,0.250 C 16.938,0.250 17.246,0.558 17.246,0.937 L 17.246,13.563 C 17.246,13.942 16.938,14.250 16.559,14.250 Z</sys:String>
     <sys:String x:Key="close">F1 M 14.177,0.177 L 0.177,14.177 M 0.177,0.177 L 14.177,14.177</sys:String>
     <sys:String x:Key="minimum">F1 M 0,7.5 L 17,7.5</sys:String>
     <sys:String x:Key="restore">F1 M 3.625,3.623 L 3.625,0.125 M 14.125,10.625 L 10.618,10.625 M 14.125,0.125 L 14.125,10.625 M 3.625,0.125 L 14.125,0.125 M 10.618,14.125 L 0.125,14.125 L 0.125,3.623 L 10.618,3.623 L 10.618,14.125 Z</sys:String>
 
+    <!--标题栏的背景-->
     <ImageBrush x:Key="captionBrushLeft" ImageSource="image/620.png" />
     <ImageBrush x:Key="captionBrushRight" ImageSource="image/600.png" />
     
     <!--窗口style-->
     <Style x:Key="WindowStyle" TargetType="{x:Type Window}">
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-        <Setter Property="AllowsTransparency" Value="True"/>
-        <Setter Property="WindowStyle" Value="None"/>
-        <Setter Property="ResizeMode" Value="NoResize"/>
-        <Setter Property="Effect">
+        <Setter Property="shell:WindowChrome.WindowChrome">
             <Setter.Value>
-                <DropShadowEffect ShadowDepth="1" BlurRadius="6" Direction="270" Opacity="0.75" Color="#FF211613"/>
+                <shell:WindowChrome ResizeBorderThickness="6" CaptionHeight="50" CornerRadius="0" GlassFrameThickness="4,0,4,4" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="6" Background="{TemplateBinding Background}">
+                    <Border x:Name="windowBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Grid Name="CaptionGrid" Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="600"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Row="0" Background="{StaticResource captionBrushLeft}">
-
-                                </Grid>
-                                <Grid Grid.Column="1" Background="{StaticResource captionBrushRight}">
-                                    <StackPanel Margin="10,17" Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <local:PathButton x:Name="PbMinimum" Margin="10,0" Command="{x:Static shell:SystemCommands.MinimizeWindowCommand}"
+                            <Border Name="CaptionBorder" Height="{Binding Path=(shell:WindowChrome.WindowChrome).CaptionHeight, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid Name="CaptionGrid">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="600"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Row="0" Background="{StaticResource captionBrushLeft}">
+                                    </Grid>
+                                    <Grid Grid.Column="1" Background="{StaticResource captionBrushRight}">
+                                        <StackPanel Margin="10,17" Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <!--给PathButton绑定Command-->
+                                            <local:PathButton x:Name="PbMinimum" Margin="10,0" Command="{x:Static shell:SystemCommands.MinimizeWindowCommand}" shell:WindowChrome.IsHitTestVisibleInChrome="True"
                                                           PathData="{StaticResource ResourceKey=minimum}" Style="{DynamicResource PathButtonStyle}"/>
-                                        <local:PathButton x:Name="PbMaximum" Margin="10,0" Command="{x:Static shell:SystemCommands.RestoreWindowCommand}"
-                                                          PathData="{StaticResource ResourceKey=restore}" Style="{DynamicResource PathButtonStyle}"/>
-                                        <local:PathButton x:Name="PbClose" Margin="10,0" Command="{x:Static shell:SystemCommands.CloseWindowCommand}"
+                                            <local:PathButton x:Name="PbMaximum" Margin="10,0" Command="{x:Static shell:SystemCommands.MaximizeWindowCommand}" shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                                          PathData="{StaticResource ResourceKey=maximum}" Style="{DynamicResource PathButtonStyle}"/>
+                                            <local:PathButton x:Name="PbClose" Margin="10,0" Command="{x:Static shell:SystemCommands.CloseWindowCommand}" shell:WindowChrome.IsHitTestVisibleInChrome="True"
                                                           PathData="{StaticResource ResourceKey=close}" Style="{DynamicResource PathButtonStyle}"/>
-                                    </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            <AdornerDecorator Grid.Row="1">
-                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}"/>
-                            </AdornerDecorator>
+                            </Border>
+                            <ContentPresenter Grid.Row="1" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="WindowState" Value="Normal">
-                            <Setter TargetName="PbMaximum" Property="PathData" Value="{StaticResource ResourceKey=maximum}"/>
-                            <Setter TargetName="PbMaximum" Property="Command" Value="{x:Static shell:SystemCommands.MaximizeWindowCommand}"/>
+                        <!--窗口大小变化时改变最大化按钮的图标-->
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="PbMaximum" Property="PathData" Value="{StaticResource ResourceKey=restore}"/>
+                            <Setter TargetName="PbMaximum" Property="Command" Value="{x:Static shell:SystemCommands.RestoreWindowCommand}"/>
+                            <!--最大化时调整border宽度，避免窗口进入黑色区域-->
+                            <Setter TargetName="windowBorder" Property="BorderThickness" Value="8"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -83,6 +83,7 @@
                         <Path x:Name="bp" StrokeThickness="1" Stroke="#a6acaf" StrokeMiterLimit="1.0" Data="{Binding PathData,RelativeSource={RelativeSource TemplatedParent}}"/>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <!--触发器更改path的属性-->
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="bp" Property="Stroke" Value="white"/>
                             <Setter TargetName="bp" Property="StrokeThickness" Value="1.25"/>

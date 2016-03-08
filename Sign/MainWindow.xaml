@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:Sign"
         mc:Ignorable="d"
         Title="Sign" Height="680" Width="1032" WindowStartupLocation="CenterScreen"
-        Style="{DynamicResource WindowStyle}" MouseDoubleClick="Window_MouseDoubleClick" MouseLeftButtonDown="Window_MouseLeftButtonDown" >
+        Style="{DynamicResource WindowStyle}" MouseLeftButtonDown="Window_MouseLeftButtonDown" >
     <Grid>
         <local:PathButton x:Name="button" Content="Button" PathData="{StaticResource ResourceKey=close}"  Style="{StaticResource PathButtonStyle}" Margin="286,394,692,190"/>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Height="166"/>
+        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Height="166" Click="button1_Click"/>
 
     </Grid>
 </local:BaseWindow>
