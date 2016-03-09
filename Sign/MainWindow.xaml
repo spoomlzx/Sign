@@ -5,11 +5,57 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sign"
         mc:Ignorable="d"
-        Title="Sign" Height="680" Width="1032" WindowStartupLocation="CenterScreen"
+        Title="信号训练系统" Height="680" Width="1032" WindowStartupLocation="CenterScreen" MinHeight="680" MinWidth="1032"
         Style="{DynamicResource WindowStyle}" MouseLeftButtonDown="Window_MouseLeftButtonDown" >
-    <Grid>
-        <local:PathButton x:Name="button" Content="Button" PathData="{StaticResource ResourceKey=close}"  Style="{StaticResource PathButtonStyle}" Margin="286,394,692,190"/>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Height="166" Click="button1_Click"/>
+    <DockPanel>
+        <TabControl x:Name="tabControl" Style="{DynamicResource TabControlStyle}">
+            <TabItem Style="{DynamicResource listTabItemStyle}" Height="40" Margin="0,30,0,0">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="image/l1.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
+                        <TextBlock Text="旗号训练" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <TextBlock x:Name="textBlock" Text="旗号训练" FontSize="25" Margin="96,84,0,0" Height="36" Width="129.247"/>
+                    <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="172.247,0,0,0" Width="195" Click="button_Click" Background="#FF90C9E8" Opacity="0.6"/>
+                </Grid>
+            </TabItem>
+            <TabItem Style="{DynamicResource listTabItemStyle}" Height="40">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="image/l2.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
+                        <TextBlock Text="手旗训练" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <TextBlock x:Name="textBlock1" Text="手旗训练" FontSize="25" Margin="96,84,0,0" Height="36" Width="129.247"/>
+                </Grid>
+            </TabItem>
+            <TabItem Style="{DynamicResource listTabItemStyle}" Height="40">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="image/l3.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
+                        <TextBlock Text="灯光训练" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <TextBlock x:Name="textBlock2" Text="灯光训练" FontSize="25" Margin="96,84,0,0" Height="36" Width="129.247"/>
+                </Grid>
+            </TabItem>
+            <TabItem Style="{DynamicResource listTabItemStyle}" Height="40">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="image/l4.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
+                        <TextBlock Text="理论知识" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <TextBlock x:Name="textBlock3" Text="理论垃圾" FontSize="25" Margin="96,84,0,0" Height="36" Width="129.247"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
-    </Grid>
+
+    </DockPanel>
 </local:BaseWindow>

@@ -49,6 +49,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Controls, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Windows.Shell">
       <HintPath>..\lib\Microsoft.Windows.Shell.dll</HintPath>
     </Reference>
@@ -141,10 +142,18 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\600.png" />
+    <Resource Include="image\620.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\620.png" />
+    <Resource Include="image\500.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\l2.png" />
+    <Resource Include="image\l3.png" />
+    <Resource Include="image\l4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\l1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
