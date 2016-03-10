@@ -74,9 +74,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="view\Lilun.xaml.cs">
+      <DependentUpon>Lilun.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\Shouqi.xaml.cs">
+      <DependentUpon>Shouqi.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\Qihao.xaml.cs">
+      <DependentUpon>Qihao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\Dengguang.xaml.cs">
+      <DependentUpon>Dengguang.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
+    <Page Include="view\Lilun.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\Shouqi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\Qihao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\Dengguang.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -89,7 +117,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BaseWindow.cs" />
+    <Compile Include="model\BaseWindow.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -100,7 +128,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PathButton.cs" />
+    <Compile Include="model\PathButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -154,6 +182,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="image\l1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\l5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

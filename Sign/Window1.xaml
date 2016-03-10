@@ -4,172 +4,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sign"
-        mc:Ignorable="d" Style="{DynamicResource WindowStyle}"
-        Title="Window1" Height="400" Width="500">
-    <local:BaseWindow.Resources>
-        <Style x:Key="TabControlStyle1" TargetType="{x:Type TabControl}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#FFACACAC"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TabControl}">
-                        <Grid x:Name="templateRoot" ClipToBounds="True" SnapsToDevicePixels="True" KeyboardNavigation.TabNavigation="Local" Margin="0,0,-248.848,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition x:Name="ColumnDefinition0"/>
-                                <ColumnDefinition x:Name="ColumnDefinition1" Width="Auto" MinWidth="272.848"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition x:Name="RowDefinition0" Height="Auto" MinHeight="83"/>
-                                <RowDefinition x:Name="RowDefinition1"/>
-                            </Grid.RowDefinitions>
-                            <StackPanel x:Name="HeaderPanel" Background="Transparent" Grid.Column="0" IsItemsHost="True" Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-                            <Border x:Name="ContentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="1" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="0" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                                <ContentPresenter x:Name="PART_SelectedContentHost" ContentTemplate="{TemplateBinding SelectedContentTemplate}" Content="{TemplateBinding SelectedContent}" ContentStringFormat="{TemplateBinding SelectedContentStringFormat}" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="TabStripPlacement" Value="Bottom">
-                                <Setter Property="Grid.Row" TargetName="HeaderPanel" Value="1"/>
-                                <Setter Property="Grid.Row" TargetName="ContentPanel" Value="0"/>
-                                <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
-                                <Setter Property="Height" TargetName="RowDefinition1" Value="Auto"/>
-                                <Setter Property="Margin" TargetName="HeaderPanel" Value="2,0,2,2"/>
-                            </Trigger>
-                            <Trigger Property="TabStripPlacement" Value="Left">
-                                <Setter Property="Grid.Row" TargetName="HeaderPanel" Value="0"/>
-                                <Setter Property="Grid.Row" TargetName="ContentPanel" Value="0"/>
-                                <Setter Property="Grid.Column" TargetName="HeaderPanel" Value="0"/>
-                                <Setter Property="Grid.Column" TargetName="ContentPanel" Value="1"/>
-                                <Setter Property="Width" TargetName="ColumnDefinition0" Value="Auto"/>
-                                <Setter Property="Width" TargetName="ColumnDefinition1" Value="*"/>
-                                <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
-                                <Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
-                                <Setter Property="Margin" TargetName="HeaderPanel" Value="2,2,0,2"/>
-                            </Trigger>
-                            <Trigger Property="TabStripPlacement" Value="Right">
-                                <Setter Property="Grid.Row" TargetName="HeaderPanel" Value="0"/>
-                                <Setter Property="Grid.Row" TargetName="ContentPanel" Value="0"/>
-                                <Setter Property="Grid.Column" TargetName="HeaderPanel" Value="1"/>
-                                <Setter Property="Grid.Column" TargetName="ContentPanel" Value="0"/>
-                                <Setter Property="Width" TargetName="ColumnDefinition0" Value="*"/>
-                                <Setter Property="Width" TargetName="ColumnDefinition1" Value="Auto"/>
-                                <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
-                                <Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
-                                <Setter Property="Margin" TargetName="HeaderPanel" Value="0,2,2,2"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="TabItemStyle1" TargetType="{x:Type TabItem}">
-            <Setter Property="FocusVisualStyle">
-                <Setter.Value>
-                    <Style>
-                        <Setter Property="Control.Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Rectangle Margin="2" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                        <GradientStop Color="#FFE5E5E5" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="BorderBrush" Value="#FFACACAC"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Padding" Value="6,2"/>
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TabItem}">
-                        <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
-                            <Border x:Name="mainBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}" Margin="0">
-                                <TextBlock x:Name="textBlock" HorizontalAlignment="Stretch" Margin="58.75,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Text="{TemplateBinding Header}"/>
-
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <DataTemplate x:Key="MyItem">
+        mc:Ignorable="d" Style="{StaticResource WindowStyle}"
+        Title="Window1" Height="407" Width="693">
+    <Window.Resources>
+        <DataTemplate x:Key="dt">
             <StackPanel Orientation="Horizontal">
-                <Image Name="Flag" Width="16" Height="11" Margin="5,0,0,0" Source="image/l1.png"/>
-                <TextBlock Text="{Binding Year}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" />
+                <Rectangle Fill="Red" Width="10"></Rectangle>
+                <TextBlock Text="{Binding Header}"></TextBlock>
             </StackPanel>
-            <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding Year}" Value="2001">
-                    <Setter TargetName="Flag" Property="Source" Value="image/l1.png" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Year}" Value="2002">
-                    <Setter TargetName="Flag" Property="Source" Value="image/l2.png" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Year}" Value="2003">
-                    <Setter TargetName="Flag" Property="Source" Value="image/l3.png" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Year}" Value="2004">
-                    <Setter TargetName="Flag" Property="Source" Value="image/l4.png" />
-                </DataTrigger>
-            </DataTemplate.Triggers>
         </DataTemplate>
-
-        <DataTemplate x:Key="contentTemplate">
-            <Grid>
-                <Rectangle Fill="White"/>
-                <ContentPresenter Content="{Binding}"/>
-            </Grid>
-        </DataTemplate>
-
-        <DataTemplate x:Key="tabItemTemplate">
-            <Grid>
-                <Rectangle Fill="Gray"/>
-                <ContentPresenter Content="{Binding}"/>
-            </Grid>
-        </DataTemplate>
-    </local:BaseWindow.Resources>
-    <Grid>
-        <TabControl Width="250" Height="300"
-            ContentTemplate="{StaticResource contentTemplate}" HorizontalAlignment="Left" Margin="29.5,16.25,0,10" d:LayoutOverrides="Width">
-            <TabItem Header="One">
-                <Ellipse Width="200" Height="200" Fill="#CABCAB"/>
-            </TabItem>
-            <TabItem Header="Two"
-           ContentTemplate="{StaticResource tabItemTemplate}">
-                <Ellipse Width="200" Height="200" Fill="#BADDF00D"/>
-            </TabItem>
-            <TabItem Header="Three">
-                <Ellipse Width="200" Height="200" Fill="#654321"/>
-            </TabItem>
-            <TabItem Header="Four">
-                <Ellipse Width="200" Height="200" Fill="#123456"/>
-            </TabItem>
-            <TabItem Header="Five">
-                <Ellipse Width="200" Height="200" Fill="#F11001"/>
-            </TabItem>
+    </Window.Resources>
+    <StackPanel Orientation="Horizontal">
+        <TabControl Name="tabControl" Width="330">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Foreground="Red" Text="{Binding}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
         </TabControl>
-        <Border BorderBrush="Black" BorderThickness="1" Height="68.5" Margin="0,43.559,175.5,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="143.5"/>
-        <ListBox x:Name="listBox" ItemTemplate="{StaticResource MyItem}" Margin="335,117.059,10,10"/>
-
-    </Grid>
+        <TabControl Name="tabControl1" Style="{StaticResource TabControlStyle}" Width="96">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Fill="Red" Width="10"></Rectangle>
+                        <TextBlock Text="{Binding}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
+    </StackPanel>
 </local:BaseWindow>

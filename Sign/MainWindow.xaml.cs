@@ -19,14 +19,36 @@ namespace Sign
     /// </summary>
     public partial class MainWindow : BaseWindow
     {
+        private bool isFirstRender=true;
+
         public MainWindow()
         {
             InitializeComponent();
         }
-
         
+        /// <summary>
+        /// 绘制tabitem，一次性渲染所有模块，会有性能损失，后期如有需要，将进行使用时渲染
+        /// </summary>
+        /// <param name="drawingContext"></param>
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            if (isFirstRender)
+            {
+                Dengguang dg = new Dengguang();
+                Shouqi sq = new Shouqi();
+                Qihao qh = new Qihao();
+                Lilun ll = new Lilun();
+                tabItem_qihao.Content = qh;
+                tabItem_shouqi.Content = sq;
+                tabItem_dengguang.Content = dg;
+                tabItem_lilun.Content = ll;
+                isFirstRender = false;
+            }
+            base.OnRender(drawingContext);
+            
+        }
 
-        
+
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
