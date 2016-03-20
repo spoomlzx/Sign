@@ -5,10 +5,39 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Sign"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignWidth="872" d:DesignHeight="638">
     <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="89,100,0,0" VerticalAlignment="Top" Width="75"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="89,179,0,0" VerticalAlignment="Top" Width="120"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="1">
+            <local:IconExpander x:Name="expander" Header="收报控制区" IsExpanded="True" Style="{StaticResource ExpanderStyle}" Margin="10,10" VerticalAlignment="Top" FontSize="14">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150*"/>
+                        <RowDefinition Height="82*"/>
+                        <RowDefinition Height="85*"/>
+                        <RowDefinition Height="85*"/>
+                        <RowDefinition Height="85*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock x:Name="textVolume" Margin="25,20,0,20" VerticalAlignment="Center" TextWrapping="Wrap" Text="音量：" FontSize="20"/>
+                        <Slider x:Name="slider" Margin="0,32,0,0" VerticalAlignment="Top" Height="21" Width="180" Value="50" Maximum="100" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="True"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock x:Name="textMl" Margin="25,20" VerticalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="码率设置：" FontSize="20"/>
+                        <TextBox x:Name="textBoxMl" Margin="10,20" VerticalContentAlignment="Center" TextWrapping="Wrap" FontSize="21.333" Text="70" Grid.Row="2" Width="103"/>
+                    </StackPanel>
 
+                    <Button x:Name="btnSet" Content="Setup" Height="36" Style="{StaticResource MetroButtonStyle}" Margin="74,20,96,20" FontSize="16" Grid.Row="3"/>
+
+                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                        <Button x:Name="btnStart" Content="开始收报" Height="32" Style="{StaticResource MetroButtonStyle}" Margin="25,20" FontSize="16" Width="82" IsEnabled="False"/>
+                        <Button x:Name="btnPause" Content="暂停收报" Height="32" Style="{StaticResource MetroButtonStyle}" Margin="25,20" FontSize="16" Width="87"/>
+                    </StackPanel>
+                </Grid>
+            </local:IconExpander>
+        </StackPanel>
     </Grid>
 </UserControl>

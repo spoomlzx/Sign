@@ -5,8 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Sign"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignWidth="872" d:DesignHeight="638">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="209*"/>
+            <ColumnDefinition Width="227*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="618" Margin="10,10,0,0" VerticalAlignment="Top" Width="398">
+            <WrapPanel Height="598" Width="378" Margin="10,10">
+                <Image Source="/Sign;component/image/qizhi/C.png" Margin="10,10" Stretch="None" MouseDown="image_MouseDown"></Image></WrapPanel>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="618" Margin="10,10,0,0" VerticalAlignment="Top" Width="434">
+            <WrapPanel AllowDrop="True" Drop="OnDrop" DragOver="OnDragOver">
+                <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="TextBlock" FontSize="26.667"/>
+            </WrapPanel>
+        </Border>
     </Grid>
 </UserControl>

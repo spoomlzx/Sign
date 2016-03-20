@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:Sign"
         mc:Ignorable="d"
         Title="信号训练系统" Height="680" Width="1032" WindowStartupLocation="CenterScreen" MinHeight="680" MinWidth="1032"
-        Style="{DynamicResource WindowStyle}" MouseLeftButtonDown="Window_MouseLeftButtonDown" >
+        Style="{DynamicResource WindowStyle}">
     <DockPanel>
         <TabControl x:Name="tabControl" Style="{DynamicResource TabControlStyle}">
             <TabItem x:Name="tabItem_qihao" Style="{DynamicResource listTabItemStyle}" Height="40" Margin="0,30,0,0">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="image/l1.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
+                        <Image Source="image/icon/l1.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
                         <TextBlock Text="旗号训练" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
                     </StackPanel>
                 </TabItem.Header>
@@ -20,15 +20,15 @@
             <TabItem x:Name="tabItem_shouqi" Style="{DynamicResource listTabItemStyle}" Height="40">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="image/l2.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
+                        <Image Source="image/icon/l2.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
                         <TextBlock Text="手旗训练" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>
-            <TabItem x:Name="tabItem_dengguang" Style="{DynamicResource listTabItemStyle}" Height="40">
+            <TabItem x:Name="tabItem_dengguang" Style="{DynamicResource listTabItemStyle}" Height="40" IsSelected="True">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="image/l3.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
+                        <Image Source="image/icon/l3.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
                         <TextBlock Text="灯光训练" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
                     </StackPanel>
                 </TabItem.Header>
@@ -36,15 +36,15 @@
             <TabItem x:Name="tabItem_lilun" Style="{DynamicResource listTabItemStyle}" Height="40">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="image/l4.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
+                        <Image Source="image/icon/l4.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
                         <TextBlock Text="理论知识" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>
-            <TabItem Style="{DynamicResource listTabItemStyle}" Height="40">
+            <TabItem x:Name="tabItem_kaohe" Style="{DynamicResource listTabItemStyle}" Height="40">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="image/l5.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
+                        <Image Source="image/icon/l5.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
                         <TextBlock Text="考核系统" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
                     </StackPanel>
                 </TabItem.Header>

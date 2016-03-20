@@ -38,6 +38,10 @@ namespace Sign
                 Shouqi sq = new Shouqi();
                 Qihao qh = new Qihao();
                 Lilun ll = new Lilun();
+
+                Morse morse = new Morse();
+                tabItem_kaohe.Content = morse;
+
                 tabItem_qihao.Content = qh;
                 tabItem_shouqi.Content = sq;
                 tabItem_dengguang.Content = dg;
@@ -46,13 +50,6 @@ namespace Sign
             }
             base.OnRender(drawingContext);
             
-        }
-
-
-
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

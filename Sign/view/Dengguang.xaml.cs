@@ -23,5 +23,11 @@ namespace Sign
         {
             InitializeComponent();
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 win = new Window1();
+            win.ShowDialog();
+        }
     }
 }

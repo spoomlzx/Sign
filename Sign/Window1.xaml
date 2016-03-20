@@ -4,33 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sign"
-        mc:Ignorable="d" Style="{StaticResource WindowStyle}"
-        Title="Window1" Height="407" Width="693">
-    <Window.Resources>
-        <DataTemplate x:Key="dt">
-            <StackPanel Orientation="Horizontal">
-                <Rectangle Fill="Red" Width="10"></Rectangle>
-                <TextBlock Text="{Binding Header}"></TextBlock>
-            </StackPanel>
-        </DataTemplate>
-    </Window.Resources>
-    <StackPanel Orientation="Horizontal">
-        <TabControl Name="tabControl" Width="330">
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Foreground="Red" Text="{Binding}"/>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-        </TabControl>
-        <TabControl Name="tabControl1" Style="{StaticResource TabControlStyle}" Width="96">
-            <TabControl.ItemTemplate>
-                <DataTemplate>
+        mc:Ignorable="d"
+        Title="报务训练系统" Height="680" Width="1032" WindowStartupLocation="CenterScreen" MinHeight="680" MinWidth="1032"
+        Style="{DynamicResource WindowStyle}" Icon="image/1.ico">
+    <DockPanel>
+        <TabControl x:Name="tabControl" Style="{DynamicResource TabControlStyle}">
+            
+            <TabItem x:Name="tabItem_kaohe" Style="{DynamicResource listTabItemStyle}" Height="40" Margin="0,30,0,0">
+                <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Rectangle Fill="Red" Width="10"></Rectangle>
-                        <TextBlock Text="{Binding}"></TextBlock>
+                        <Image Source="image/icon/l5.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
+                        <TextBlock Text="数码抄收" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
                     </StackPanel>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
+                </TabItem.Header>
+            </TabItem>
         </TabControl>
-    </StackPanel>
+
+
+    </DockPanel>
 </local:BaseWindow>

@@ -48,6 +48,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>image\1.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Controls, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Windows.Shell">
@@ -74,6 +77,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="model\IconExpander.cs" />
+    <Compile Include="model\IconToggleButton.cs" />
+    <Compile Include="util\Translate.cs" />
+    <Compile Include="view\Morse.xaml.cs">
+      <DependentUpon>Morse.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\Lilun.xaml.cs">
       <DependentUpon>Lilun.xaml</DependentUpon>
     </Compile>
@@ -89,6 +98,14 @@
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
+    <Page Include="image\path\PathDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\Morse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="view\Lilun.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -176,15 +193,49 @@
     <Resource Include="image\500.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\l2.png" />
-    <Resource Include="image\l3.png" />
-    <Resource Include="image\l4.png" />
+    <Resource Include="image\icon\l2.png" />
+    <Resource Include="image\icon\l3.png" />
+    <Resource Include="image\icon\l4.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\l1.png" />
+    <Resource Include="image\icon\l1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\l5.png" />
+    <Resource Include="image\icon\l5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\qizhi\A.png" />
+    <Resource Include="image\qizhi\B.png" />
+    <Resource Include="image\qizhi\C.png" />
+    <Resource Include="image\qizhi\D.png" />
+    <Resource Include="image\qizhi\E.png" />
+    <Resource Include="image\qizhi\F.png" />
+    <Resource Include="image\qizhi\G.png" />
+    <Resource Include="image\qizhi\H.png" />
+    <Resource Include="image\qizhi\I.png" />
+    <Resource Include="image\qizhi\J.png" />
+    <Resource Include="image\qizhi\K.png" />
+    <Resource Include="image\qizhi\L.png" />
+    <Resource Include="image\qizhi\M.png" />
+    <Resource Include="image\qizhi\N.png" />
+    <Resource Include="image\qizhi\O.png" />
+    <Resource Include="image\qizhi\P.png" />
+    <Resource Include="image\qizhi\Q.png" />
+    <Resource Include="image\qizhi\R.png" />
+    <Resource Include="image\qizhi\S.png" />
+    <Resource Include="image\qizhi\T.png" />
+    <Resource Include="image\qizhi\U.png" />
+    <Resource Include="image\qizhi\V.png" />
+    <Resource Include="image\qizhi\W.png" />
+    <Resource Include="image\qizhi\X.png" />
+    <Resource Include="image\qizhi\Y.png" />
+    <Resource Include="image\qizhi\Z.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\icon\arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\1.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
