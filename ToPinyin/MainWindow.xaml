@@ -1,0 +1,34 @@
+﻿<Window x:Class="ToPinyin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ToPinyin"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <GroupBox x:Name="groupBox" Header="GroupBox" Margin="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="40,30">
+                    <TextBlock Text="汉字：" VerticalAlignment="Center" Margin="10,0"></TextBlock>
+                    <TextBox Name="textIn" Margin="20,0" Width="200"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="40,30">
+                    <Button Content="转拼音" Margin="10,0" Click="Button_Click"></Button>
+                    <Button Content="转拼音首字母" Margin="40,0"></Button>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="40,30" >
+                    <TextBlock Text="拼音：" VerticalAlignment="Center" Margin="10,0"></TextBlock>
+                    <TextBox Name="TextOut" Margin="20,0" Width="200"></TextBox>
+                </StackPanel>
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</Window>

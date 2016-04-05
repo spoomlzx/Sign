@@ -18,10 +18,10 @@ namespace Sign
         }
         private void SetupCommandBindings()
         {
-            CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, OnSystemCommandCloseWindow));
-            CommandBindings.Add(new CommandBinding(SystemCommands.MinimizeWindowCommand, OnSystemCommandMinimizeWindow));
-            CommandBindings.Add(new CommandBinding(SystemCommands.MaximizeWindowCommand, OnSystemCommandMaximizeWindow));
-            CommandBindings.Add(new CommandBinding(SystemCommands.RestoreWindowCommand, OnSystemCommandRestoreWindow));
+            CommandBindings.Add(new CommandBinding(Microsoft.Windows.Shell.SystemCommands.CloseWindowCommand, OnSystemCommandCloseWindow));
+            CommandBindings.Add(new CommandBinding(Microsoft.Windows.Shell.SystemCommands.MinimizeWindowCommand, OnSystemCommandMinimizeWindow));
+            CommandBindings.Add(new CommandBinding(Microsoft.Windows.Shell.SystemCommands.MaximizeWindowCommand, OnSystemCommandMaximizeWindow));
+            CommandBindings.Add(new CommandBinding(Microsoft.Windows.Shell.SystemCommands.RestoreWindowCommand, OnSystemCommandRestoreWindow));
         }
 
         //private void OnWinMouseDoubleClick(object sender, ExecutedRoutedEventArgs e)
@@ -58,22 +58,22 @@ namespace Sign
 
         private void OnSystemCommandCloseWindow(object sender, ExecutedRoutedEventArgs e)
         {
-            SystemCommands.CloseWindow(this);
+            Microsoft.Windows.Shell.SystemCommands.CloseWindow(this);
         }
 
         private void OnSystemCommandMinimizeWindow(object sender, ExecutedRoutedEventArgs e)
         {
-            SystemCommands.MinimizeWindow(this);
+            Microsoft.Windows.Shell.SystemCommands.MinimizeWindow(this);
         }
 
         private void OnSystemCommandMaximizeWindow(object sender, ExecutedRoutedEventArgs e)
         {
-            SystemCommands.MaximizeWindow(this);
+            Microsoft.Windows.Shell.SystemCommands.MaximizeWindow(this);
         }
 
         private void OnSystemCommandRestoreWindow(object sender, ExecutedRoutedEventArgs e)
         {
-            SystemCommands.RestoreWindow(this);
+            Microsoft.Windows.Shell.SystemCommands.RestoreWindow(this);
         }
     }
 }

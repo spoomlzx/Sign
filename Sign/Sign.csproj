@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Sign</RootNamespace>
     <AssemblyName>Sign</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -28,6 +28,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,17 +49,42 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>image\1.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ChnCharInfo">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio International Pack\Simplified Chinese Pin-Yin Conversion Library\ChnCharInfo.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Controls, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Windows.Shell">
       <HintPath>..\lib\Microsoft.Windows.Shell.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\lib\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -77,8 +104,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataAccess.cs" />
     <Compile Include="model\IconExpander.cs" />
     <Compile Include="model\IconToggleButton.cs" />
+    <Compile Include="util\sql2.cs" />
+    <Compile Include="util\sql1.cs" />
+    <Compile Include="util\SqliteHelper.cs" />
+    <Compile Include="util\SqliteService.cs" />
+    <Compile Include="util\Tick.cs" />
     <Compile Include="util\Translate.cs" />
     <Compile Include="view\Morse.xaml.cs">
       <DependentUpon>Morse.xaml</DependentUpon>
@@ -163,6 +196,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -204,38 +238,82 @@
     <Resource Include="image\icon\l5.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\qizhi\A.png" />
-    <Resource Include="image\qizhi\B.png" />
-    <Resource Include="image\qizhi\C.png" />
-    <Resource Include="image\qizhi\D.png" />
-    <Resource Include="image\qizhi\E.png" />
-    <Resource Include="image\qizhi\F.png" />
-    <Resource Include="image\qizhi\G.png" />
-    <Resource Include="image\qizhi\H.png" />
-    <Resource Include="image\qizhi\I.png" />
-    <Resource Include="image\qizhi\J.png" />
-    <Resource Include="image\qizhi\K.png" />
-    <Resource Include="image\qizhi\L.png" />
-    <Resource Include="image\qizhi\M.png" />
-    <Resource Include="image\qizhi\N.png" />
-    <Resource Include="image\qizhi\O.png" />
-    <Resource Include="image\qizhi\P.png" />
-    <Resource Include="image\qizhi\Q.png" />
-    <Resource Include="image\qizhi\R.png" />
-    <Resource Include="image\qizhi\S.png" />
-    <Resource Include="image\qizhi\T.png" />
-    <Resource Include="image\qizhi\U.png" />
-    <Resource Include="image\qizhi\V.png" />
-    <Resource Include="image\qizhi\W.png" />
-    <Resource Include="image\qizhi\X.png" />
-    <Resource Include="image\qizhi\Y.png" />
-    <Resource Include="image\qizhi\Z.png" />
+    <Resource Include="image\flag\char\A.png" />
+    <Resource Include="image\flag\char\B.png" />
+    <Resource Include="image\flag\char\C.png" />
+    <Resource Include="image\flag\char\D.png" />
+    <Resource Include="image\flag\char\E.png" />
+    <Resource Include="image\flag\char\F.png" />
+    <Resource Include="image\flag\char\G.png" />
+    <Resource Include="image\flag\char\H.png" />
+    <Resource Include="image\flag\char\I.png" />
+    <Resource Include="image\flag\char\J.png" />
+    <Resource Include="image\flag\char\K.png" />
+    <Resource Include="image\flag\char\L.png" />
+    <Resource Include="image\flag\char\M.png" />
+    <Resource Include="image\flag\char\N.png" />
+    <Resource Include="image\flag\char\O.png" />
+    <Resource Include="image\flag\char\P.png" />
+    <Resource Include="image\flag\char\Q.png" />
+    <Resource Include="image\flag\char\R.png" />
+    <Resource Include="image\flag\char\S.png" />
+    <Resource Include="image\flag\char\T.png" />
+    <Resource Include="image\flag\char\U.png" />
+    <Resource Include="image\flag\char\V.png" />
+    <Resource Include="image\flag\char\W.png" />
+    <Resource Include="image\flag\char\X.png" />
+    <Resource Include="image\flag\char\Y.png" />
+    <Resource Include="image\flag\char\Z.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="image\icon\arrow.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="image\1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\shine.png" />
+    <Resource Include="image\slake.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\num\0.png" />
+    <Resource Include="image\flag\num\1.png" />
+    <Resource Include="image\flag\num\2.png" />
+    <Resource Include="image\flag\num\3.png" />
+    <Resource Include="image\flag\num\4.png" />
+    <Resource Include="image\flag\num\5.png" />
+    <Resource Include="image\flag\num\6.png" />
+    <Resource Include="image\flag\num\7.png" />
+    <Resource Include="image\flag\num\8.png" />
+    <Resource Include="image\flag\num\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\other\5.png" />
+    <Resource Include="image\flag\other\6.png" />
+    <Resource Include="image\flag\other\7.png" />
+    <Resource Include="image\flag\other\0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\other\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\other\8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\other\1.png" />
+    <Resource Include="image\flag\other\4.png" />
+    <Resource Include="image\flag\other\2.png" />
+    <Resource Include="image\flag\other\3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="x86\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

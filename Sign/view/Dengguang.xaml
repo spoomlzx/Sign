@@ -4,13 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Sign"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" FontWeight="ExtraLight"
              d:DesignWidth="872" d:DesignHeight="638">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
+        <Border BorderBrush="{StaticResource Expander.Static.Border}" Margin="10,10" BorderThickness="2">
+            <StackPanel>
+                <DockPanel Background="{StaticResource Expander.Static.Background}" Margin="-2,-2">
+                    <Path x:Name="titleIcon" Fill="White" VerticalAlignment="Center" Margin="10,8" Data="{StaticResource ResourceKey=message}"/>
+                    <TextBlock Text="灯光信号接收训练" VerticalAlignment="Center" Foreground="White"/>
+                </DockPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="430"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Image Name="Img_dg" Source="/Sign;component/image/slake.png" Margin="20,10"></Image>
+                    <StackPanel Grid.Row="1" Margin="20,10">
+                        <Border BorderThickness="5,0,0,0" BorderBrush="#57B5E3" Background="#E8F6FC" HorizontalAlignment="Left">
+                            <TextBlock x:Name="textBlock1" TextWrapping="Wrap" VerticalAlignment="Center" Margin="20,10" FontSize="16" Foreground="Black" Text="请输入需要发送的灯光报文"/>
+                        </Border>
+                        <TextBox x:Name="messageIn" Margin="0,10" Height="50" FontSize="16"></TextBox>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+
         <StackPanel Grid.Column="1">
             <local:IconExpander x:Name="expander" Header="收报控制区" IsExpanded="True" Style="{StaticResource ExpanderStyle}" Margin="10,10" VerticalAlignment="Top" FontSize="14">
                 <Grid>
@@ -23,21 +45,22 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <TextBlock x:Name="textVolume" Margin="25,20,0,20" VerticalAlignment="Center" TextWrapping="Wrap" Text="音量：" FontSize="20"/>
-                        <Slider x:Name="slider" Margin="0,32,0,0" VerticalAlignment="Top" Height="21" Width="180" Value="50" Maximum="100" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="True"/>
+                        <Slider x:Name="slider" Height="21" Width="180" Value="60" Maximum="100" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="True"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        <TextBlock x:Name="textMl" Margin="25,20" VerticalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="码率设置：" FontSize="20"/>
-                        <TextBox x:Name="textBoxMl" Margin="10,20" VerticalContentAlignment="Center" TextWrapping="Wrap" FontSize="21.333" Text="70" Grid.Row="2" Width="103"/>
+                        <TextBlock x:Name="textMl" Margin="25,20,0,20" VerticalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="码率：" FontSize="20"/>
+                        <Slider x:Name="sliderMl" TickPlacement="BottomRight" Ticks="10,20,30,40" Minimum="10" Maximum="60" AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" Height="21" Width="180" Value="20" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="True" ValueChanged="sliderMl_ValueChanged"/>
                     </StackPanel>
 
-                    <Button x:Name="btnSet" Content="Setup" Height="36" Style="{StaticResource MetroButtonStyle}" Margin="74,20,96,20" FontSize="16" Grid.Row="3"/>
+                    <Button x:Name="btnSet" Content="Setup" Height="36" Style="{StaticResource MetroButtonStyle}" Margin="74,20,96,20" FontSize="16" Grid.Row="3" Click="btnSet_Click"/>
 
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
-                        <Button x:Name="btnStart" Content="开始收报" Height="32" Style="{StaticResource MetroButtonStyle}" Margin="25,20" FontSize="16" Width="82" IsEnabled="False"/>
-                        <Button x:Name="btnPause" Content="暂停收报" Height="32" Style="{StaticResource MetroButtonStyle}" Margin="25,20" FontSize="16" Width="87"/>
+                        <Button x:Name="btnStart" Content="开始收报" Height="32" Style="{StaticResource MetroButtonStyle}" Margin="25,20" FontSize="16" Width="82" Click="btnStart_Click"/>
+                        <Button x:Name="btnPause" Content="暂停收报" Height="32" Style="{StaticResource MetroButtonStyle}" Margin="25,20" FontSize="16" Width="87" Click="btnPause_Click"/>
                     </StackPanel>
                 </Grid>
             </local:IconExpander>
+            <TextBox x:Name="textBox" Margin="10,10" TextWrapping="Wrap" Height="240"/>
         </StackPanel>
     </Grid>
 </UserControl>
