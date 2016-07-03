@@ -44,25 +44,30 @@
             </Border>
         </Popup>
         <!--右侧侧边栏弹出旗帜popup end-->
-        <Border BorderBrush="Black" BorderThickness="1" Margin="10,10">
+        <Border BorderBrush="Black" BorderThickness="0" Margin="10,10" MouseLeftButtonDown="Border_MouseLeftButtonDown_1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="85*"/>
                     <RowDefinition Height="223*"/>
                 </Grid.RowDefinitions>
                 <Border Margin="10,10" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                    <Grid>
+                    <Grid x:Name="grid_situation">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="7*"/>
                             <RowDefinition Height="7*"/>
                             <RowDefinition Height="10*"/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="0">
-                            <Image Source="/Sign;component/image/icon/arrow.png" Width="42" Margin="20,0,0,0"></Image>
-                            <TextBlock x:Name="textBlock" VerticalAlignment="Center" Margin="20,20" FontSize="24" Text="情景设置"/>
+                            <Button x:Name="btnPre" Content="上一题" Margin="0,8,10,8" Style="{StaticResource MetroButtonStyle}" Width="70" Click="btnPre_Click" />
+                            <Button x:Name="btnNext" Content="下一题" Margin="0,8,10,8" Style="{StaticResource MetroButtonStyle}" Width="70" Click="btnNext_Click" />
                         </StackPanel>
-                        <StackPanel Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                            <Image Source="/Sign;component/image/icon/arrow.png" Width="42" Margin="20,0,0,0"></Image>
+                            <TextBlock x:Name="textBlock" VerticalAlignment="Center" Margin="10,0" FontSize="16" Text="{Binding Path=Name}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2">
                             <Border BorderThickness="5,0,0,0" BorderBrush="#57B5E3" Background="#E8F6FC">
-                                <TextBlock x:Name="textBlock1" TextWrapping="Wrap" VerticalAlignment="Center" Margin="20,10" FontSize="16" Text="当需要靠码头时，应该如何悬挂信号旗？"/>
+                                <TextBlock x:Name="textBlock1" TextWrapping="Wrap" VerticalAlignment="Center" Margin="20,10" FontSize="16" Text="{Binding Path=Detail}"/>
                             </Border>
                         </StackPanel>
 
@@ -74,8 +79,8 @@
                         <ColumnDefinition Width="36*"/>
                     </Grid.ColumnDefinitions>
 
-                    <WrapPanel Background="Transparent" Margin="268,95,90,54" AllowDrop="True" Drop="WrapPanel_Drop"/>
-                    <WrapPanel Background="Transparent" Margin="-0.632,95.305,0,53.651" Grid.Column="1" AllowDrop="True" Drop="WrapPanel_Drop" HorizontalAlignment="Left" Width="100"/>
+                    <WrapPanel x:Name="wrapPanel_left" Background="Transparent" Margin="263,95,95,54" AllowDrop="True" Drop="WrapPanel_Drop"/>
+                    <WrapPanel x:Name="wrapPanel_right" Background="Transparent" Margin="-0.632,95.305,0,53.651" Grid.Column="1" AllowDrop="True" Drop="WrapPanel_Drop" HorizontalAlignment="Left" Width="100"/>
                     <Path Data="M89.272993,89 L450.44234,89" Fill="Black" StrokeThickness="10" Margin="253,89,238.632,0" Stretch="Fill" Stroke="Black" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <Path Data="M314,99.351825 L314,396.7854" Fill="Black" HorizontalAlignment="Right" Margin="0,89,-4.368,24.215" Stretch="Fill" Stroke="Black" StrokeThickness="10" Width="13.415"/>
                     <Path Data="M224,99.351825 L224,396.7854" Fill="Black" HorizontalAlignment="Right" Margin="0,89,89.632,24.215" Stretch="Fill" Stroke="Black" StrokeThickness="10" Width="13.415"/>

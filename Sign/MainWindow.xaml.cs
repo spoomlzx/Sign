@@ -19,43 +19,52 @@ namespace Sign
     /// </summary>
     public partial class MainWindow : BaseWindow
     {
-        private bool isFirstRender=true;
+        private Qihao qihao;
+        private Shouqi shouqi;
+        private Dengguang denggguang;
+        private Lilun lilun;
+        private Morse shoubao;
+
 
         public MainWindow()
         {
             InitializeComponent();
-        }
-        
-        /// <summary>
-        /// 绘制tabitem，一次性渲染所有模块，会有性能损失，后期如有需要，将进行使用时渲染
-        /// </summary>
-        /// <param name="drawingContext"></param>
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            if (isFirstRender)
-            {
-                Dengguang dg = new Dengguang();
-                Shouqi sq = new Shouqi();
-                Qihao qh = new Qihao();
-                Lilun ll = new Lilun();
-
-                Morse morse = new Morse();
-                tabItem_kaohe.Content = morse;
-
-                tabItem_qihao.Content = qh;
-                tabItem_shouqi.Content = sq;
-                tabItem_dengguang.Content = dg;
-                tabItem_lilun.Content = ll;
-                isFirstRender = false;
-            }
-            base.OnRender(drawingContext);
-            
+            lilunzhishi.IsSelected = true;
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void qihaoxunlian_Selected(object sender, RoutedEventArgs e)
         {
-            Window1 win = new Window1();
-            win.ShowDialog();
+            root.Children.Clear();
+            qihao = new Qihao();
+            root.Children.Add(qihao);
+        }
+
+        private void shouqixunlian_Selected(object sender, RoutedEventArgs e)
+        {
+            root.Children.Clear();
+            shouqi = new Shouqi();
+            root.Children.Add(shouqi);
+        }
+
+        private void dengguangxunlian_Selected(object sender, RoutedEventArgs e)
+        {
+            root.Children.Clear();
+            denggguang = new Dengguang();
+            root.Children.Add(denggguang);
+        }
+
+        private void lilunzhishi_Selected(object sender, RoutedEventArgs e)
+        {
+            root.Children.Clear();
+            lilun = new Lilun();
+            root.Children.Add(lilun);
+        }
+
+        private void shumashoubao_Selected(object sender, RoutedEventArgs e)
+        {
+            root.Children.Clear();
+            shoubao = new Morse();
+            root.Children.Add(shoubao);
         }
     }
 

@@ -14,6 +14,7 @@ namespace Sign
     public partial class Shouqi : UserControl
     {
         private SqliteHelper sh = null;
+        private SqliteService ss = new SqliteService();
         
         public Shouqi()
         {
@@ -91,6 +92,24 @@ namespace Sign
         {
             DataTable dt = sh.GetSchema();
             dataGrid.ItemsSource = dt.DefaultView;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            SqliteService ss = new SqliteService();
+            lb_flag.ItemsSource = ss.getListFlag();
+            lb_flag1.ItemsSource = ss.getListFlag();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Flag flag = new Flag();
+            flag.id = Convert.ToInt32( tb_id.Text);
+            flag.name = tb_name.Text;
+            flag.kind = tb_kind.Text;
+            flag.substitute = tb_sub.Text;
+            flag.meaning = tb_meaning.Text;
+            ss.UpdateFlag(flag);
         }
     }
 }

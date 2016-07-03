@@ -43,9 +43,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
-                            <Border x:Name="HeaderBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="Transparent">
-                                <ContentPresenter x:Name="HeaderContent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0,0,0,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            </Border>
+                        <Border x:Name="HeaderBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="Transparent">
+                            <ContentPresenter x:Name="HeaderContent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0,0,0,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="Height" Value="Auto">
                                 <Setter Property="MinHeight" Value="40"/>
@@ -67,7 +67,10 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="button" Content="Button" Grid.Row="1" FontSize="18" Width="100" Height="50" Style="{DynamicResource ButtonStyle}"/>
+        <Canvas Grid.Row="1" Grid.Column="0">
+            <!-- 图层 1/<复合路径> -->
+            <Path Fill="#ff00a0e8" Data="F1 M 21.807,71.898 L 29.698,71.896 L 29.698,67.880 L 21.807,67.882 C 21.257,67.896 20.760,68.106 20.393,68.473 C 20.026,68.841 19.816,69.338 19.799,69.890 C 19.802,70.992 20.705,71.896 21.807,71.898 Z M 21.807,60.585 L 29.726,60.582 L 29.726,56.566 L 21.807,56.569 C 21.257,56.582 20.760,56.792 20.393,57.160 C 20.026,57.527 19.816,58.024 19.799,58.577 C 19.802,59.679 20.705,60.582 21.807,60.585 Z M 21.807,49.271 L 29.726,49.268 L 29.726,45.252 L 21.807,45.255 C 21.257,45.269 20.760,45.479 20.393,45.846 C 20.026,46.213 19.816,46.710 19.799,47.263 C 19.802,48.365 20.705,49.268 21.807,49.271 Z M 2.008,86.040 C 0.906,86.038 0.003,85.135 0.000,84.032 C 0.017,83.480 0.227,82.983 0.594,82.616 C 0.961,82.248 1.458,82.038 2.008,82.024 L 9.913,82.035 L 9.913,35.201 C 9.913,34.068 10.380,33.093 11.187,32.287 C 12.220,31.254 13.802,30.488 15.656,29.966 L 15.755,22.995 C 15.755,22.487 15.965,21.989 16.332,21.622 C 16.346,21.608 16.346,21.608 16.363,21.592 C 16.730,21.224 17.255,21.014 17.777,21.028 L 26.019,21.155 C 27.110,21.169 28.003,22.089 27.986,23.177 L 27.889,29.953 C 28.497,30.107 29.060,30.306 29.585,30.516 C 33.193,31.975 33.742,34.082 33.731,35.198 L 33.701,82.035 L 41.606,82.024 C 42.711,82.024 43.614,82.928 43.614,84.032 C 43.617,85.135 42.711,86.041 41.606,86.040 L 2.008,86.040 Z M 10.493,122.810 L 33.121,122.810 C 34.226,122.810 35.132,121.904 35.129,120.802 C 35.129,119.697 34.226,118.794 33.121,118.794 L 27.862,118.794 L 27.972,90.029 L 15.728,90.026 L 15.628,118.808 L 10.493,118.794 C 9.944,118.808 9.447,119.018 9.079,119.385 C 8.712,119.752 8.502,120.250 8.485,120.802 C 8.488,121.904 9.391,122.807 10.493,122.810 Z M 23.787,17.111 L 19.785,17.070 L 19.799,2.008 C 19.816,1.456 20.026,0.958 20.393,0.591 C 20.760,0.224 21.257,0.014 21.807,0.000 C 22.926,0.014 23.815,0.903 23.815,2.008 L 23.787,17.111 Z"/>
+        </Canvas>
         <StackPanel Grid.Column="1" Grid.RowSpan="2">
             <local:ExpanderIcon x:Name="expander" Header="报文设置" Margin="20,10" Style="{DynamicResource ExpanderStyle}">
                 <Grid>

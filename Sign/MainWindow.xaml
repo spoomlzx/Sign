@@ -5,55 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sign"
         mc:Ignorable="d"
-        Title="信号训练系统" Height="680" Width="1032" WindowStartupLocation="CenterScreen" MinHeight="680" MinWidth="1032"
+        Title="信号训练系统" Height="680" Width="1020" WindowStartupLocation="CenterScreen" MinHeight="680" MinWidth="1020"
         Style="{DynamicResource WindowStyle}">
-    <DockPanel>
-        <TabControl x:Name="tabControl" Style="{DynamicResource TabControlStyle}">
-            <TabItem x:Name="tabItem_qihao" Style="{DynamicResource listTabItemStyle}" Height="40" Margin="0,30,0,0">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="image/icon/l1.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
-                        <TextBlock Text="旗号训练" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
-                    </StackPanel>
-                </TabItem.Header>
-            </TabItem>
-            <TabItem x:Name="tabItem_shouqi" Style="{DynamicResource listTabItemStyle}" Height="40">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="image/icon/l2.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
-                        <TextBlock Text="手旗训练" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
-                    </StackPanel>
-                </TabItem.Header>
-            </TabItem>
-            <TabItem x:Name="tabItem_dengguang" Style="{DynamicResource listTabItemStyle}" Height="40">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="image/icon/l3.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
-                        <TextBlock Text="灯光训练" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
-                    </StackPanel>
-                </TabItem.Header>
-            </TabItem>
-            <TabItem x:Name="tabItem_lilun" Style="{DynamicResource listTabItemStyle}" Height="40">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="image/icon/l4.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
-                        <TextBlock Text="理论知识" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
-                    </StackPanel>
-                </TabItem.Header>
-            </TabItem>
-            <TabItem x:Name="tabItem_kaohe" Style="{DynamicResource listTabItemStyle}" Height="40">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="image/icon/l5.png" Width="25" Margin="10,0" VerticalAlignment="Center"></Image>
-                        <TextBlock Text="考核系统" VerticalAlignment="Center" Margin="4,0" FontSize="14" FontWeight="Light"></TextBlock>
-                    </StackPanel>
-                </TabItem.Header>
-                <Grid>
-                    <TextBlock x:Name="textBlock4" Text="考核系统" FontSize="25" Margin="96,84,0,0" Height="36" Width="129.247"/>
-                </Grid>
-            </TabItem>
-        </TabControl>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Background="#e6ebec">
+            <ListBox Margin="0,30" Style="{DynamicResource ListBoxStyle}" ItemContainerStyle="{DynamicResource ListBoxItemStyle}">
+                <ListBoxItem x:Name="qihaoxunlian" Selected="qihaoxunlian_Selected">旗号训练</ListBoxItem>
+                <ListBoxItem x:Name="shouqixunlian" Selected="shouqixunlian_Selected">手旗训练</ListBoxItem>
+                <ListBoxItem x:Name="dengguangxunlian" Selected="dengguangxunlian_Selected">灯光训练</ListBoxItem>
+                <ListBoxItem x:Name="lilunzhishi" Selected="lilunzhishi_Selected">理论知识</ListBoxItem>
+                <ListBoxItem x:Name="shumashoubao" Selected="shumashoubao_Selected">数码收报</ListBoxItem>
+            </ListBox>
+        </StackPanel>
+        <Grid x:Name="root" Grid.Column="1"></Grid>
 
-
-    </DockPanel>
+    </Grid>
 </local:BaseWindow>

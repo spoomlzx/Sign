@@ -7,6 +7,8 @@ using Sign.util;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Data;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Sign
 {
@@ -15,12 +17,35 @@ namespace Sign
     /// </summary>
     public partial class Qihao : UserControl
     {
+        private DispatcherTimer dispt = new DispatcherTimer();
+        private int situationPosition = 0;
+        private List<Situation> listS = null;
         public Qihao()
         {
             InitializeComponent();
             //BitmapImage bimg = new BitmapImage(new Uri("../image/qizhi/C.png", UriKind.Relative));
 
+            //初始化弹出popup的计时器
+            dispt.Interval = TimeSpan.FromMilliseconds(1000);
+            dispt.Tick += new EventHandler(Timer_Tick);
+            dispt.Stop();
+
             InitFlag();
+            InitSituation();
+        }
+
+        private void InitSituation()
+        {
+            situationPosition = 0;
+            SqliteService ss = new SqliteService();
+            listS = ss.getListSituationByCategory("aa");
+            grid_situation.DataContext = listS[situationPosition];
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            joinPopup.IsOpen = true;
+            dispt.Stop();
         }
 
         /// <summary>
@@ -28,38 +53,40 @@ namespace Sign
         /// </summary>
         private void InitFlag()
         {
-            //初始化字母旗
-            string charlist = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             for (int i = 1; i < 27; i++)
             {
-                BitmapImage bimg = new BitmapImage(new Uri("../image/flag/char/" + charlist[i] + ".png", UriKind.Relative));
+                BitmapImage bimg = new BitmapImage(new Uri("../image/flag/char/" + i + ".png", UriKind.Relative));
                 Image img = new Image() { Height = 40, Margin = new Thickness(10, 5, 5, 5) };
-                img.Name = Convert.ToString(charlist[i]);
+                img.Name = "id"+ Convert.ToString(i);
                 img.Source = bimg;
+                img.SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
                 img.MouseEnter += new MouseEventHandler(img_MouseEnter);
                 img.MouseLeave += new MouseEventHandler(img_MouseLeave);
                 img.MouseDown += new MouseButtonEventHandler(source_MouseDown);
                 wrapChar.Children.Add(img);
             }
+            
             //初始化数字旗
-            for(int i = 1; i < 11; i++)
+            for (int i = 27; i < 37; i++)
             {
                 BitmapImage bimg = new BitmapImage(new Uri("../image/flag/num/" + i + ".png", UriKind.Relative));
-                Image img = new Image() { Height = 40, Margin = new Thickness(10, 5, 5, 5) };
-                img.Name = "n" + Convert.ToString(i);
+                Image img = new Image() {Height=40, Margin = new Thickness(10, 5, 5, 5) };
+                img.Name = "id" + Convert.ToString(i);
                 img.Source = bimg;
+                img.SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
                 img.MouseEnter += new MouseEventHandler(img_MouseEnter);
                 img.MouseLeave += new MouseEventHandler(img_MouseLeave);
                 img.MouseDown += new MouseButtonEventHandler(source_MouseDown);
                 wrapNum.Children.Add(img);
             }
             //初始化其他旗
-            for (int i = 0; i < 10; i++)
+            for (int i = 37; i < 47; i++)
             {
                 BitmapImage bimg = new BitmapImage(new Uri("../image/flag/other/" + i + ".png", UriKind.Relative));
                 Image img = new Image() { Height = 40, Margin = new Thickness(10, 5, 5, 5) };
-                img.Name = "num" + Convert.ToString(i);
+                img.Name = "id" + Convert.ToString(i);
                 img.Source = bimg;
+                img.SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
                 img.MouseEnter += new MouseEventHandler(img_MouseEnter);
                 img.MouseLeave += new MouseEventHandler(img_MouseLeave);
                 img.MouseDown += new MouseButtonEventHandler(source_MouseDown);
@@ -71,19 +98,24 @@ namespace Sign
         private void img_MouseLeave(object sender, MouseEventArgs e)
         {
             joinPopup.IsOpen = false;
+            //离开后重置计时器
+            dispt.Stop();
         }
 
         private void img_MouseEnter(object sender, MouseEventArgs e)
         {
             Image img = sender as Image;
             SqliteService ss = new SqliteService();
-            Flag flag = ss.GetFlagByName(img.Name);
+            int id = Convert.ToInt16(img.Name.Substring(2));
+            Flag flag = ss.GetFlagById(id);
             joinPopup.PlacementTarget = img;
             joinPopup.PopupAnimation = System.Windows.Controls.Primitives.PopupAnimation.Slide;
-            popupTbName.Text = img.Name + "  " + flag.substitute;
+            popupTbName.Text = flag.name + "  " + flag.substitute;
             popupTbMeaning.Text = flag.meaning;
-            joinPopup.IsOpen = true;
+            dispt.Start();
         }
+
+
 
         private void WrapPanel_Drop(object sender, DragEventArgs e)
         {
@@ -93,6 +125,7 @@ namespace Sign
             {
                 Image img = new Image() { Width = 100, Height = 60, Margin = new Thickness(0, 10, 0, 10) };
                 Image temp = data.GetData(typeof(Image)) as Image;
+                img.SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
                 img.Source = temp.Source;
                 ((WrapPanel)sender).Children.Add(img);
             }
@@ -117,6 +150,7 @@ namespace Sign
                     popupChar.IsOpen = true;
                     popupNum.IsOpen = false;
                     popupOther.IsOpen = false;
+
                 }
             }
             else if(bd.Name == "borderNum")
@@ -147,6 +181,35 @@ namespace Sign
             }
             
             
+        }
+
+        private void Border_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            popupChar.IsOpen = false;
+            popupNum.IsOpen = false;
+            popupOther.IsOpen = false;
+        }
+
+        private void btnPre_Click(object sender, RoutedEventArgs e)
+        {
+            if (situationPosition > 0)
+            {
+                situationPosition--;
+                grid_situation.DataContext = listS[situationPosition];
+            }
+            wrapPanel_left.Children.Clear();
+            wrapPanel_right.Children.Clear();
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (situationPosition+1 < listS.Count)
+            {
+                situationPosition++;
+                grid_situation.DataContext = listS[situationPosition];
+            }
+            wrapPanel_left.Children.Clear();
+            wrapPanel_right.Children.Clear();
         }
     }
 }

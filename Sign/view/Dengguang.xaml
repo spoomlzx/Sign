@@ -44,8 +44,7 @@
                         <RowDefinition Height="85*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <TextBlock x:Name="textVolume" Margin="25,20,0,20" VerticalAlignment="Center" TextWrapping="Wrap" Text="音量：" FontSize="20"/>
-                        <Slider x:Name="slider" Height="21" Width="180" Value="60" Maximum="100" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="True"/>
+                        <CheckBox x:Name="checkBox" Content="是否外接信号灯" FontSize="16" Margin="25,20" Checked="checkBox_Checked" Unchecked="checkBox_Unchecked"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
                         <TextBlock x:Name="textMl" Margin="25,20,0,20" VerticalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="码率：" FontSize="20"/>

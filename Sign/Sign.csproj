@@ -104,14 +104,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataAccess.cs" />
     <Compile Include="model\IconExpander.cs" />
     <Compile Include="model\IconToggleButton.cs" />
+    <Compile Include="model\Warship.xaml.cs">
+      <DependentUpon>Warship.xaml</DependentUpon>
+    </Compile>
     <Compile Include="util\sql2.cs" />
     <Compile Include="util\sql1.cs" />
     <Compile Include="util\SqliteHelper.cs" />
     <Compile Include="util\SqliteService.cs" />
-    <Compile Include="util\Tick.cs" />
+    <Compile Include="util\Pojo.cs" />
     <Compile Include="util\Translate.cs" />
     <Compile Include="view\Morse.xaml.cs">
       <DependentUpon>Morse.xaml</DependentUpon>
@@ -134,6 +136,10 @@
     <Page Include="image\path\PathDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="model\Warship.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="view\Morse.xaml">
       <SubType>Designer</SubType>
@@ -238,34 +244,6 @@
     <Resource Include="image\icon\l5.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\flag\char\A.png" />
-    <Resource Include="image\flag\char\B.png" />
-    <Resource Include="image\flag\char\C.png" />
-    <Resource Include="image\flag\char\D.png" />
-    <Resource Include="image\flag\char\E.png" />
-    <Resource Include="image\flag\char\F.png" />
-    <Resource Include="image\flag\char\G.png" />
-    <Resource Include="image\flag\char\H.png" />
-    <Resource Include="image\flag\char\I.png" />
-    <Resource Include="image\flag\char\J.png" />
-    <Resource Include="image\flag\char\K.png" />
-    <Resource Include="image\flag\char\L.png" />
-    <Resource Include="image\flag\char\M.png" />
-    <Resource Include="image\flag\char\N.png" />
-    <Resource Include="image\flag\char\O.png" />
-    <Resource Include="image\flag\char\P.png" />
-    <Resource Include="image\flag\char\Q.png" />
-    <Resource Include="image\flag\char\R.png" />
-    <Resource Include="image\flag\char\S.png" />
-    <Resource Include="image\flag\char\T.png" />
-    <Resource Include="image\flag\char\U.png" />
-    <Resource Include="image\flag\char\V.png" />
-    <Resource Include="image\flag\char\W.png" />
-    <Resource Include="image\flag\char\X.png" />
-    <Resource Include="image\flag\char\Y.png" />
-    <Resource Include="image\flag\char\Z.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="image\icon\arrow.png" />
   </ItemGroup>
   <ItemGroup>
@@ -276,36 +254,6 @@
     <Resource Include="image\slake.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\flag\num\0.png" />
-    <Resource Include="image\flag\num\1.png" />
-    <Resource Include="image\flag\num\2.png" />
-    <Resource Include="image\flag\num\3.png" />
-    <Resource Include="image\flag\num\4.png" />
-    <Resource Include="image\flag\num\5.png" />
-    <Resource Include="image\flag\num\6.png" />
-    <Resource Include="image\flag\num\7.png" />
-    <Resource Include="image\flag\num\8.png" />
-    <Resource Include="image\flag\num\9.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="image\flag\other\5.png" />
-    <Resource Include="image\flag\other\6.png" />
-    <Resource Include="image\flag\other\7.png" />
-    <Resource Include="image\flag\other\0.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="image\flag\other\9.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="image\flag\other\8.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="image\flag\other\1.png" />
-    <Resource Include="image\flag\other\4.png" />
-    <Resource Include="image\flag\other\2.png" />
-    <Resource Include="image\flag\other\3.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -314,6 +262,66 @@
     <None Include="x86\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\char\1.png" />
+    <Resource Include="image\flag\char\10.png" />
+    <Resource Include="image\flag\char\11.png" />
+    <Resource Include="image\flag\char\12.png" />
+    <Resource Include="image\flag\char\13.png" />
+    <Resource Include="image\flag\char\14.png" />
+    <Resource Include="image\flag\char\15.png" />
+    <Resource Include="image\flag\char\16.png" />
+    <Resource Include="image\flag\char\17.png" />
+    <Resource Include="image\flag\char\18.png" />
+    <Resource Include="image\flag\char\19.png" />
+    <Resource Include="image\flag\char\20.png" />
+    <Resource Include="image\flag\char\21.png" />
+    <Resource Include="image\flag\char\23.png" />
+    <Resource Include="image\flag\char\24.png" />
+    <Resource Include="image\flag\char\25.png" />
+    <Resource Include="image\flag\char\26.png" />
+    <Resource Include="image\flag\char\3.png" />
+    <Resource Include="image\flag\char\4.png" />
+    <Resource Include="image\flag\char\6.png" />
+    <Resource Include="image\flag\char\7.png" />
+    <Resource Include="image\flag\char\8.png" />
+    <Resource Include="image\flag\char\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\num\27.png" />
+    <Resource Include="image\flag\num\28.png" />
+    <Resource Include="image\flag\num\29.png" />
+    <Resource Include="image\flag\num\30.png" />
+    <Resource Include="image\flag\num\32.png" />
+    <Resource Include="image\flag\num\33.png" />
+    <Resource Include="image\flag\num\34.png" />
+    <Resource Include="image\flag\num\35.png" />
+    <Resource Include="image\flag\num\36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\other\37.png" />
+    <Resource Include="image\flag\other\38.png" />
+    <Resource Include="image\flag\other\39.png" />
+    <Resource Include="image\flag\other\40.png" />
+    <Resource Include="image\flag\other\41.png" />
+    <Resource Include="image\flag\other\42.png" />
+    <Resource Include="image\flag\other\43.png" />
+    <Resource Include="image\flag\other\44.png" />
+    <Resource Include="image\flag\other\45.png" />
+    <Resource Include="image\flag\other\46.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\char\22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\char\5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\char\2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\flag\num\31.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

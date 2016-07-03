@@ -10,6 +10,16 @@ namespace Sign.util
 {
     class SqliteService
     {
+        private static SqliteHelper sh = new SqliteHelper();
+
+        public static SqliteHelper Sh
+        {
+            get
+            {
+                return sh;
+            }
+        }
+
         public Flag GetFlagByName(string name)
         {
             try
@@ -19,7 +29,6 @@ namespace Sign.util
                 {
                     new SQLiteParameter("name", name)
                 };
-                SqliteHelper sh = new SqliteHelper();
                 DataTable dt = sh.Select(sql, cmdparams);
                 if (dt.Rows.Count > 0)
                 {
@@ -51,7 +60,6 @@ namespace Sign.util
                 {
                     new SQLiteParameter("id", id)
                 };
-                SqliteHelper sh = new SqliteHelper();
                 DataTable dt = sh.Select(sql, cmdparams);
                 if (dt.Rows.Count > 0)
                 {
@@ -72,6 +80,145 @@ namespace Sign.util
                 return null;
             }
 
+        }
+
+        public List<Flag> getListFlag()
+        {
+            try
+            {
+                var sql = "select * from flag;";
+                DataTable dt = sh.Select(sql);
+                List<Flag> listFlag = new List<Flag>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Flag f = new Flag();
+                    f.id = int.Parse(dr["id"].ToString());
+                    f.name = dr["name"].ToString();
+                    f.substitute = dr["substitute"].ToString();
+                    f.kind = dr["kind"].ToString();
+                    f.meaning = dr["meaning"].ToString();
+                    listFlag.Add(f);
+                }
+
+                return listFlag;
+            }
+            catch (Exception)
+            {
+                //Do any logging operation here if necessary
+                return null;
+            }
+        }
+
+        public void UpdateFlag(Flag flag)
+        {
+            try
+            {
+                var sql = "update flag set name=@name,kind=@kind,substitute=@substitute,meaning=@meaning where id=@id;";
+                var cmdparams = new List<SQLiteParameter>()
+                {
+                    new SQLiteParameter("name", flag.name),
+                    new SQLiteParameter("kind", flag.kind),
+                    new SQLiteParameter("substitute", flag.substitute),
+                    new SQLiteParameter("meaning", flag.meaning),
+                    new SQLiteParameter("id", flag.id)
+                    
+                };
+                sh.Execute(sql, cmdparams);
+            }
+            catch (Exception)
+            {
+                //Do any logging operation here if necessary
+            }
+        }
+
+        public List<Situation> getListSituationByCategory(string category)
+        {
+            try
+            {
+                var sql = "select * from situation where category=@category;";
+                var cmdparams = new List<SQLiteParameter>()
+                {
+                    new SQLiteParameter("category", category)
+                };
+                DataTable dt = sh.Select(sql, cmdparams);
+                List<Situation> listS = new List<Situation>();
+                foreach(DataRow dr in dt.Rows)
+                {
+                    Situation s = new Situation();
+                    s.Id = int.Parse(dr["id"].ToString());
+                    s.Name = dr["name"].ToString();
+                    s.Category = dr["category"].ToString();
+                    s.Detail = dr["detail"].ToString();
+                    listS.Add(s);
+                }
+                
+                return listS;
+            }
+            catch (Exception)
+            {
+                //Do any logging operation here if necessary
+                return null;
+            }
+        }
+    }
+
+    class Situation
+    {
+        private int id;
+        private string name;
+        private string category;
+        private string detail;
+
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+
+            set
+            {
+                name = value;
+            }
+        }
+
+        public string Category
+        {
+            get
+            {
+                return category;
+            }
+
+            set
+            {
+                category = value;
+            }
+        }
+
+        public string Detail
+        {
+            get
+            {
+                return detail;
+            }
+
+            set
+            {
+                detail = value;
+            }
         }
     }
 

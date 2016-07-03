@@ -109,6 +109,8 @@ namespace Sign.util
             }
         }
 
+
+        //select count(*) from table
         public object ExecuteScalar(string sql)
         {
             return ExecuteScalar(sql, new List<SQLiteParameter>());
