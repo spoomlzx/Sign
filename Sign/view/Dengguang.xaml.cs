@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sign.util;
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Text.RegularExpressions;
 
 namespace Sign
 {
@@ -33,8 +35,8 @@ namespace Sign
             InitializeComponent();
             timer.Tick += new EventHandler(Timer_Tick);
             double ml = sliderMl.Value;
-            timer.Interval = TimeSpan.FromMilliseconds(5000/ml);
-            //InitPort();
+            timer.Interval = TimeSpan.FromMilliseconds(5000 / ml);
+
         }
 
         private void InitPort()
@@ -56,7 +58,6 @@ namespace Sign
                     //MessageBox.Show("错误：" + ex.Message);
                 }
             }
-            
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -74,20 +75,24 @@ namespace Sign
             s0[3] = 0x02;
             s0[4] = 0xDF;
             //逐个读取信号，转译成电键信号
+            if (output)
+            {
+                sp.Write(s0, 0, 5);
+            }
             if (signIn[position].Equals('1'))
             {
-                Img_dg.Source = new BitmapImage(new Uri("../image/shine.png", UriKind.Relative));
+                Img_dg.Source = new BitmapImage(new Uri("../image/liang.png", UriKind.Relative));
                 if (output)
                 {
                     sp.Write(s1, 0, 5);
                 }
-                
+
             }
             else if (signIn[position].Equals('2'))
             {
                 btnStart.Content = "开始收报";
                 timer.Stop();
-                Img_dg.Source = new BitmapImage(new Uri("../image/slake.png", UriKind.Relative));
+                Img_dg.Source = new BitmapImage(new Uri("../image/an.png", UriKind.Relative));
                 if (output)
                 {
                     sp.Write(s0, 0, 5);
@@ -95,7 +100,7 @@ namespace Sign
             }
             else
             {
-                Img_dg.Source = new BitmapImage(new Uri("../image/slake.png", UriKind.Relative));
+                Img_dg.Source = new BitmapImage(new Uri("../image/an.png", UriKind.Relative));
                 if (output)
                 {
                     sp.Write(s0, 0, 5);
@@ -103,13 +108,16 @@ namespace Sign
             }
             position++;
         }
-
+        /// <summary>
+        /// 任选10句报文
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSet_Click(object sender, RoutedEventArgs e)
         {
-            string chinese = messageIn.Text;
-            Translate trans = new Translate();
-            textBox.Text = trans.ChineseToS(chinese);
-            signIn = textBox.Text+"2";
+            SqliteService ss = new SqliteService();
+            List<Baowen> listB = ss.getListBaowen(10);
+            listBox_bw.ItemsSource = listB;
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
@@ -119,7 +127,7 @@ namespace Sign
             if (timer.IsEnabled)
             {
                 timer.Stop();
-                Img_dg.Source = new BitmapImage(new Uri("../image/slake.png", UriKind.Relative));
+                Img_dg.Source = new BitmapImage(new Uri("../image/an.png", UriKind.Relative));
                 //将报文位置重置到报头
                 btn.Content = "开始收报";
             }
@@ -130,18 +138,22 @@ namespace Sign
                 btn.Content = "停止收报";
             }
         }
-
-        private void btnPause_Click(object sender, RoutedEventArgs e)
-        {
-            Img_dg.Source = new BitmapImage(new Uri("../image/shine.png", UriKind.Relative));
-        }
-
+        /// <summary>
+        /// 调节发报速度
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sliderMl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             double ml = sliderMl.Value;
             timer.Interval = TimeSpan.FromMilliseconds(5000 / ml);
         }
 
+        /// <summary>
+        /// 选择是否外接灯泡
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox_Checked(object sender, RoutedEventArgs e)
         {
             InitPort();
@@ -151,6 +163,34 @@ namespace Sign
         private void checkBox_Unchecked(object sender, RoutedEventArgs e)
         {
             output = false;
+        }
+
+        private void Shezhibaowen_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+
+            string tag = button.Tag.ToString();
+            textBox1.Text = tag;
+            Translate trans = new Translate();
+            string sign = trans.PinyinToS(tag);
+            textBox.Text = sign;
+            signIn = sign + "2";
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string baowen = input_baowen.Text;
+            string qianming = input_qianming.Text;
+
+            string pattern = "\\W+";
+            Regex rgx = new Regex(pattern);
+            string result = rgx.Replace(baowen, " ");
+            textBox1.Text = result;
+
+
+            Translate trans = new Translate();
+            textBox.Text = trans.ChineseToS(result + " @ " + qianming);
+            signIn = textBox.Text + "2";
         }
     }
 }

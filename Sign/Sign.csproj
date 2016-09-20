@@ -104,6 +104,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="view\AddMessage.xaml.cs">
+      <DependentUpon>AddMessage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\Biandui.xaml.cs">
+      <DependentUpon>Biandui.xaml</DependentUpon>
+    </Compile>
     <Compile Include="model\IconExpander.cs" />
     <Compile Include="model\IconToggleButton.cs" />
     <Compile Include="model\Warship.xaml.cs">
@@ -133,6 +139,14 @@
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
+    <Page Include="view\AddMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\Biandui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="image\path\PathDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -322,6 +336,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="image\flag\num\31.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\an.png" />
+    <Resource Include="image\liang.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

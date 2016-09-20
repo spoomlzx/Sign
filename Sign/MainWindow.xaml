@@ -14,11 +14,9 @@
         </Grid.ColumnDefinitions>
         <StackPanel Background="#e6ebec">
             <ListBox Margin="0,30" Style="{DynamicResource ListBoxStyle}" ItemContainerStyle="{DynamicResource ListBoxItemStyle}">
-                <ListBoxItem x:Name="qihaoxunlian" Selected="qihaoxunlian_Selected">旗号训练</ListBoxItem>
-                <ListBoxItem x:Name="shouqixunlian" Selected="shouqixunlian_Selected">手旗训练</ListBoxItem>
                 <ListBoxItem x:Name="dengguangxunlian" Selected="dengguangxunlian_Selected">灯光训练</ListBoxItem>
-                <ListBoxItem x:Name="lilunzhishi" Selected="lilunzhishi_Selected">理论知识</ListBoxItem>
-                <ListBoxItem x:Name="shumashoubao" Selected="shumashoubao_Selected">数码收报</ListBoxItem>
+                <!--<ListBoxItem x:Name="shumashoubao" Selected="shumashoubao_Selected">数码收报</ListBoxItem>-->
+                <ListBoxItem x:Name="addmessage" Selected="addmessage_Selected">添加报文</ListBoxItem>
             </ListBox>
         </StackPanel>
         <Grid x:Name="root" Grid.Column="1"></Grid>

@@ -260,7 +260,7 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="Content" Value="旗号训练">
+                        <Trigger Property="Content" Value="添加报文">
                             <Setter TargetName="img" Property="Source" Value="image/icon/l1.png"/>
                         </Trigger>
                         <Trigger Property="Content" Value="手旗训练">

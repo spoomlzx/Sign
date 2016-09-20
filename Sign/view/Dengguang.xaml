@@ -9,25 +9,37 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="280"/>
         </Grid.ColumnDefinitions>
-        <Border BorderBrush="{StaticResource Expander.Static.Border}" Margin="10,10" BorderThickness="2">
+        <Border BorderBrush="{StaticResource Expander.Static.Border}" Margin="10,10,0,10" BorderThickness="2">
             <StackPanel>
                 <DockPanel Background="{StaticResource Expander.Static.Background}" Margin="-2,-2">
                     <Path x:Name="titleIcon" Fill="White" VerticalAlignment="Center" Margin="10,8" Data="{StaticResource ResourceKey=message}"/>
                     <TextBlock Text="灯光信号接收训练" VerticalAlignment="Center" Foreground="White"/>
                 </DockPanel>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="430"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Image Name="Img_dg" Source="/Sign;component/image/slake.png" Margin="20,10"></Image>
-                    <StackPanel Grid.Row="1" Margin="20,10">
+                    <StackPanel Margin="10,10">
                         <Border BorderThickness="5,0,0,0" BorderBrush="#57B5E3" Background="#E8F6FC" HorizontalAlignment="Left">
-                            <TextBlock x:Name="textBlock1" TextWrapping="Wrap" VerticalAlignment="Center" Margin="20,10" FontSize="16" Foreground="Black" Text="请输入需要发送的灯光报文"/>
+                            <TextBlock x:Name="textBlock1" TextWrapping="Wrap" VerticalAlignment="Center" Margin="20,10" FontSize="16" Foreground="Black" Text="请输入需要发送的灯光报文及签名"/>
                         </Border>
-                        <TextBox x:Name="messageIn" Margin="0,10" Height="50" FontSize="16"></TextBox>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="input_baowen" Margin="0,5,5,5" Width="400" Height="30" FontSize="16"></TextBox>
+                            <TextBox x:Name="input_qianming" Margin="0,5" Width="45" Height="30" FontSize="16"></TextBox>
+                            <Button Content="设置" Height="30" Style="{StaticResource MetroButtonStyle}" Margin="5,5" FontSize="16" Width="60" Click="Button_Click"/>
+                        </StackPanel>
+                        <ListBox x:Name="listBox_bw" Margin="0,5,0,0">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox Text="{Binding Path=Id}" Margin="0,5,5,5" Height="24" Width="20"></TextBox>
+                                        <TextBlock Text="{Binding Path=Bw}" Margin="0,5,5,5" Width="400" Height="24" FontSize="16"></TextBlock>
+                                        <TextBlock Text="{Binding Path=Qianming}" Margin="0,5" Width="45" Height="24" FontSize="16"></TextBlock>
+                                        <Button Content="设置" Tag="{Binding Path=Sign}" Height="24" Style="{StaticResource MetroButtonStyle}" Margin="5,5" FontSize="16" Width="45" Click="Shezhibaowen_Button_Click"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
                     </StackPanel>
                 </Grid>
             </StackPanel>
@@ -41,25 +53,23 @@
                         <RowDefinition Height="82*"/>
                         <RowDefinition Height="85*"/>
                         <RowDefinition Height="85*"/>
-                        <RowDefinition Height="85*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <CheckBox x:Name="checkBox" Content="是否外接信号灯" FontSize="16" Margin="25,20" Checked="checkBox_Checked" Unchecked="checkBox_Unchecked"/>
+                        <CheckBox x:Name="checkBox" Content="是否外接信号灯" FontSize="16" Margin="10,10,25,10" Checked="checkBox_Checked" Unchecked="checkBox_Unchecked"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        <TextBlock x:Name="textMl" Margin="25,20,0,20" VerticalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="码率：" FontSize="20"/>
-                        <Slider x:Name="sliderMl" TickPlacement="BottomRight" Ticks="10,20,30,40" Minimum="10" Maximum="60" AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" Height="21" Width="180" Value="20" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="True" ValueChanged="sliderMl_ValueChanged"/>
+                        <TextBlock x:Name="textMl" Margin="10,10,0,10" VerticalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="码率：" FontSize="20"/>
+                        <Slider x:Name="sliderMl" TickPlacement="BottomRight" Minimum="10" Maximum="80" AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" Height="21" Width="180" Value="40" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="True" ValueChanged="sliderMl_ValueChanged"/>
                     </StackPanel>
-
-                    <Button x:Name="btnSet" Content="Setup" Height="36" Style="{StaticResource MetroButtonStyle}" Margin="74,20,96,20" FontSize="16" Grid.Row="3" Click="btnSet_Click"/>
-
-                    <StackPanel Grid.Row="4" Orientation="Horizontal">
-                        <Button x:Name="btnStart" Content="开始收报" Height="32" Style="{StaticResource MetroButtonStyle}" Margin="25,20" FontSize="16" Width="82" Click="btnStart_Click"/>
-                        <Button x:Name="btnPause" Content="暂停收报" Height="32" Style="{StaticResource MetroButtonStyle}" Margin="25,20" FontSize="16" Width="87" Click="btnPause_Click"/>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                        <Button x:Name="btnSet" Content="任选10条" Height="32" Style="{StaticResource MetroButtonStyle}" Margin="10,10" Width="100" Click="btnSet_Click"/>
+                        <Button x:Name="btnStart" Content="开始收报" Height="32" Style="{StaticResource MetroButtonStyle}" Margin="5,10" Width="100" Click="btnStart_Click"/>
                     </StackPanel>
                 </Grid>
             </local:IconExpander>
-            <TextBox x:Name="textBox" Margin="10,10" TextWrapping="Wrap" Height="240"/>
+            <TextBox x:Name="textBox" Margin="10,10" TextWrapping="Wrap" Height="150"/>
+            <TextBox x:Name="textBox1" Margin="10,0" TextWrapping="Wrap" Height="30"/>
+            <Image Name="Img_dg" Margin="30,10,30,30" Source="/Sign;component/image/an.png"></Image>
         </StackPanel>
     </Grid>
 </UserControl>

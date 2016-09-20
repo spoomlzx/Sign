@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Sign.util
@@ -160,6 +161,81 @@ namespace Sign.util
                 return null;
             }
         }
+
+        public List<Baowen> getListBaowen(int number)
+        {
+            try
+            {
+                var sql = "select * from baowen order by random() limit @number;";
+                var cmdparams = new List<SQLiteParameter>()
+                {
+                    new SQLiteParameter("number", number)
+                };
+                DataTable dt = sh.Select(sql, cmdparams);
+                List<Baowen> listB = new List<Baowen>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Situation s = new Situation();
+                    Baowen b = new Baowen();
+                    b.Id = int.Parse(dr["id"].ToString());
+                    b.Bw = dr["bw"].ToString();
+                    b.Pinyin = dr["pinyin"].ToString();
+                    b.Qianming = dr["qianming"].ToString();
+                    listB.Add(b);
+                }
+                return listB;
+            }
+            catch (Exception)
+            {
+                //Do any logging operation here if necessary
+                return null;
+            }
+        }
+
+        public void UpdateBaowen(Baowen baowen)
+        {
+            try
+            {
+                var sql = "update baowen set bw=@bw,pinyin=@pinyin,qianming=@qianming where id=@id;";
+                var cmdparams = new List<SQLiteParameter>()
+                {
+                    new SQLiteParameter("bw", baowen.Bw),
+                    new SQLiteParameter("pinyin", baowen.Pinyin),
+                    new SQLiteParameter("qianming", baowen.Qianming),
+                    new SQLiteParameter("id", baowen.Id)
+                };
+                sh.Execute(sql, cmdparams);
+            }
+            catch (Exception)
+            {
+                //Do any logging operation here if necessary
+            }
+        }
+
+        public int InsertBaowen(Baowen baowen)
+        {
+            try
+            {
+                var sql = "insert into baowen(bw,pinyin,qianming) values (@bw,@pinyin,@qianming);";
+                var cmdparams = new List<SQLiteParameter>()
+                {
+                    new SQLiteParameter("bw", baowen.Bw),
+                    new SQLiteParameter("pinyin", baowen.Pinyin),
+                    new SQLiteParameter("qianming", baowen.Qianming),
+                    new SQLiteParameter("id", baowen.Id)
+                };
+                sh.Execute(sql, cmdparams);
+                int re =Convert.ToInt32(sh.ExecuteScalar("select last_insert_rowid();"));
+                return re;
+            }
+            catch (Exception)
+            {
+                //Do any logging operation here if necessary
+                return -1;
+            }
+        }
+        
+
     }
 
     class Situation
@@ -292,6 +368,95 @@ namespace Sign.util
             set
             {
                 _meaning = value;
+            }
+        }
+    }
+
+    class Baowen
+    {
+        private int id;
+        private string bw;
+        private string pinyin;
+        private string qianming;
+
+        public Baowen()
+        {
+            this.bw = null;
+            this.pinyin = null;
+            this.qianming = null;
+        }
+
+        public Baowen(string bw,string pinyin,string qianming)
+        {
+            this.bw = bw;
+            this.pinyin = pinyin;
+            this.qianming = qianming;
+        }
+
+
+        public string Sign
+        {
+            get
+            {
+                string temp = pinyin.Replace('\'', '@');
+                temp = temp.Replace('_', '[');
+                temp = temp + " @ " + qianming;
+                return temp;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+            }
+        }
+
+
+        public string Pinyin
+        {
+            get
+            {
+                return pinyin;
+            }
+
+            set
+            {
+                string pattern = "\\W+";
+                Regex rgx = new Regex(pattern);
+                pinyin = rgx.Replace(value, " ");
+            }
+        }
+
+        public string Qianming
+        {
+            get
+            {
+                return qianming;
+            }
+
+            set
+            {
+                qianming = value;
+            }
+        }
+
+        public string Bw
+        {
+            get
+            {
+                return bw;
+            }
+
+            set
+            {
+                bw = value;
             }
         }
     }

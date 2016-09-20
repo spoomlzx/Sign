@@ -29,12 +29,13 @@ namespace Sign
             "1011101",//R
             "10101",//S
             "111",//T
-            "101011",//U
+            "1010111",//U
             "101010111",//V
             "101110111",//W
             "11101010111",//X
             "1110101110111",//Y
-            "11101110101"//Z
+            "11101110101",//Z
+            "10101110101"
         };
         private string[] nums = {
             "111",//0
@@ -48,8 +49,8 @@ namespace Sign
             "1110101",//8
             "11101"//9
         };
-        private string[] fullnums = { "10111011101110111","101011101110111","1010101110111","10101010111","101010101",
-                            "11101010101","1110111010101","111011101110101","11101110111011101","1110111011101110111"};
+        private string[] fullnums = { "1110111011101110111","10111011101110111","101011101110111","1010101110111","10101010111","101010101",
+                            "11101010101","1110111010101","111011101110101","11101110111011101"};
         //短间隔，通常为3个单位
         private string shortInterval = "000";
         //长间隔，通常为5个单位,但是除掉一个短间隔
@@ -65,7 +66,7 @@ namespace Sign
             {
                 return chars[Convert.ToInt16(chr)-97];
             }
-            else if(chr >= 'A' && chr <= 'Z')
+            else if(chr >= 'A' && chr <= '[')//[代表拼音中的u，例如nv女
             {
                 return chars[Convert.ToInt16(chr) - 65];
             }
@@ -79,6 +80,31 @@ namespace Sign
             }
         }
 
+        public string PinyinToS(string str)
+        {
+            string r = string.Empty;
+            r += "11101011101011100000000";//开始符号
+            foreach (char c in str)
+            {
+                if (c == '@')//隔音符号
+                {
+                    r += "10111011101011101000";
+                }
+                else if(c==' ')
+                {
+                    r += "00000";
+                }
+                else
+                {
+                    r += CharToS(c);
+                    r += shortInterval;
+                }
+            }
+
+            r += "000001011101011101";//结束符号
+            return r;
+        }
+
         /// <summary>
         /// 中文转数字信号
         /// </summary>
@@ -87,11 +113,19 @@ namespace Sign
         public string ChineseToS(string str)
         {
             string r = string.Empty;
-            foreach(char c in ChineseToChar(str))
+            r += "11101011101011100000000";//开始符号
+            string sstr = ChineseToChar(str);
+            //n'a,n'e,n'o,g'a,g'e,g'o
+            sstr = sstr.Replace("N&A","N@A").Replace("N&E", "N@E").Replace("N&O", "N@O").Replace("G&A", "G@A").Replace("G&E", "G@E").Replace("G&O", "G@O");
+            foreach(char c in sstr)
             {
-                if (c == '&')
+                if (c == '@')//隔音符号
                 {
-                    r += longInterval;
+                    r += "10111011101011101000";
+                }
+                else if (c == ' ')//隔音符号
+                {
+                    r += "00000";
                 }
                 else
                 {
@@ -99,6 +133,7 @@ namespace Sign
                     r += shortInterval;
                 }
             }
+            r += "1011101011101";//结束符号
             return r;
         }
 
@@ -134,7 +169,7 @@ namespace Sign
                     ChineseChar chineseChar = new ChineseChar(obj);
                     string t = chineseChar.Pinyins[0].ToString();
                     r += t.Substring(0, t.Length - 1);
-                    r += "&";
+                    r=r.Replace('V', '[');
                 }
                 catch
                 {
