@@ -79,7 +79,11 @@ namespace Sign
                 return null;
             }
         }
-
+        /// <summary>
+        /// 拼音->数字信号
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public string PinyinToS(string str)
         {
             string r = string.Empty;
@@ -89,6 +93,10 @@ namespace Sign
                 if (c == '@')//隔音符号
                 {
                     r += "10111011101011101000";
+                }
+                else if (c == '/')
+                {
+                    r += "111010101110100000";
                 }
                 else if(c==' ')
                 {
@@ -123,7 +131,7 @@ namespace Sign
                 {
                     r += "10111011101011101000";
                 }
-                else if (c == ' ')//隔音符号
+                else if (c == ' ')//分词、空格符号
                 {
                     r += "00000";
                 }
@@ -169,17 +177,49 @@ namespace Sign
                     ChineseChar chineseChar = new ChineseChar(obj);
                     string t = chineseChar.Pinyins[0].ToString();
                     r += t.Substring(0, t.Length - 1);
-                    r=r.Replace('V', '[');
+                    r += "&";
+                    r=r.Replace('V', '_');
                 }
                 catch
                 {
                     r += obj.ToString();
                 }
             }
-            return r;
+            r = r.Replace("N&A", "N@A").Replace("N&E", "N@E").Replace("N&O", "N@O").Replace("G&A", "G@A").Replace("G&E", "G@E").Replace("G&O", "G@O");
+            r = r.Replace("&", "");
+            return r.ToLower();
         }
 
+        /// <summary>
+        /// 随机生成count位的签名
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public string getString(int count)
+        {
+            int number;
+            string checkCode = String.Empty;     //存放随机码的字符串   
 
-        
+            Random random = new Random();
+
+            for (int i = 0; i < count; i++) //产生4位校验码   
+            {
+                number = random.Next();
+                number = number % 36;
+                if (number < 10)
+                {
+                    number += 48;    //数字0-9编码在48-57   
+                }
+                else
+                {
+                    number += 55;    //字母A-Z编码在65-90   
+                }
+
+                checkCode += ((char)number).ToString();
+            }
+            return checkCode;
+       }
+
+
     }
 }

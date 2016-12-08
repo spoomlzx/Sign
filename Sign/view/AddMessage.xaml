@@ -22,27 +22,37 @@
                         <TextBlock x:Name="textBlock1" TextWrapping="Wrap" VerticalAlignment="Center" Margin="10,5" FontSize="16" Foreground="Black" Text="报文组号"/>
                     </Border>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="input_id" Margin="0,5,5,5" Width="400" Height="30" FontSize="16"></TextBox>
+                        <TextBox x:Name="input_id" Margin="0,5,5,5" Width="160" Height="30" FontSize="16"></TextBox>
+                        <Button x:Name="btn_query" Content="查询报文" Height="30" Style="{StaticResource MetroButtonStyle}" Margin="5,5" FontSize="16" Width="100" Click="btn_query_Click"/>
                     </StackPanel>
                     <Border BorderThickness="5,0,0,0" BorderBrush="#57B5E3" Background="#E8F6FC" HorizontalAlignment="Left">
                         <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="10,5" FontSize="16" Foreground="Black" Text="请输入报文内容"/>
                     </Border>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="input_bw" Margin="0,5,5,5" Width="400" Height="100" FontSize="16"></TextBox>
+                        <TextBox x:Name="input_bw" Margin="0,5,5,5" Width="540" Height="100" FontSize="16" LostFocus="input_bw_LostFocus" TextWrapping="Wrap"></TextBox>
                     </StackPanel>
                     <Border BorderThickness="5,0,0,0" BorderBrush="#57B5E3" Background="#E8F6FC" HorizontalAlignment="Left">
-                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="10,5" FontSize="16" Foreground="Black" Text="请输入报文拼音，分词使用空格，ü使用_代替"/>
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="10,5" FontSize="16" Foreground="Black" Text="请输入报文拼音，分词使用空格，ü使用 _ 代替，'代表个音符"/>
                     </Border>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="input_pinyin" Margin="0,5,5,5" Width="400" Height="100" FontSize="16"></TextBox>
+                        <TextBox x:Name="input_pinyin" Margin="0,5,5,5" Width="540" Height="100" FontSize="16" TextWrapping="Wrap"></TextBox>
                     </StackPanel>
                     <Border BorderThickness="5,0,0,0" BorderBrush="#57B5E3" Background="#E8F6FC" HorizontalAlignment="Left">
                         <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="10,5" FontSize="16" Foreground="Black" Text="请输入需要发送的灯光报文及签名"/>
                     </Border>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="input_qianming" Margin="0,5,5,5" Width="100" Height="30" FontSize="16"></TextBox>
+                        <TextBox x:Name="input_qianming" Margin="0,5,5,5" Width="210" Height="30" FontSize="16"></TextBox>
+                        <TextBlock x:Name="update_info" TextWrapping="Wrap" VerticalAlignment="Center" Margin="10,5" FontSize="16" Foreground="Black" Text=""/>
                     </StackPanel>
-                    <Button Content="设置" Height="30" Style="{StaticResource MetroButtonStyle}" Margin="5,5" FontSize="16" Width="60" Click="Button_Click"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btn_add" Content="添加" Height="30" Style="{StaticResource MetroButtonStyle}" Margin="0,5,5,5" FontSize="16" Width="100" Click="btn_add_Click"/>
+                        <Button x:Name="btn_update" Content="确认修改" Height="30" Style="{StaticResource MetroButtonStyle}" Margin="5,5" FontSize="16" Width="100" Click="btn_update_Click"/>
+                        <Button x:Name="btn_pre" Content="上一条" Height="30" Style="{StaticResource MetroButtonStyle}" Margin="5,5" FontSize="16" Width="100" Click="btn_pre_Click"/>
+                        <Button x:Name="btn_next" Content="下一条" Height="30" Style="{StaticResource MetroButtonStyle}" Margin="5,5" FontSize="16" Width="100" Click="btn_next_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btn_ouput" Content="导出报文" Height="30" Style="{StaticResource MetroButtonStyle}" Margin="0,5,5,5" FontSize="16" Width="100" Click="btn_ouput_Click"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </Border>

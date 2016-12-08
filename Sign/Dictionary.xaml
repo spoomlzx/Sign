@@ -130,7 +130,7 @@
                         <!--触发器更改path的属性-->
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="bp" Property="Stroke" Value="white"/>
-                            <Setter TargetName="bp" Property="StrokeThickness" Value="1.25"/>
+                            <!--<Setter TargetName="bp" Property="StrokeThickness" Value="1.25"/>-->
                             <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -251,8 +251,8 @@
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                     <Border x:Name="Bd" Height="40" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
                         <Grid>
-                            <Image x:Name="img" Width="25" Margin="25,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            <ContentPresenter Margin="70,0,0,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                            <Image x:Name="img" Width="25" Margin="10,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <ContentPresenter Margin="45,0,0,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                             <Path x:Name="path" VerticalAlignment="Center" HorizontalAlignment="Right"
                               Visibility="Hidden" StrokeThickness="1" 
                               Fill="White" StrokeMiterLimit="1.0" 
@@ -427,6 +427,40 @@
                 <Setter Property="BorderBrush" Value="Blue"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+    <SolidColorBrush x:Key="ListBox.Static.Background" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="ListBox.Static.Border" Color="#FFABADB3"/>
+    <SolidColorBrush x:Key="ListBox.Disabled.Background" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="ListBox.Disabled.Border" Color="#FFD9D9D9"/>
+    <Style x:Key="ListBoxStyle_Baowen" TargetType="{x:Type ListBox}">
+        <Setter Property="Background" Value="{StaticResource ListBox.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ListBox.Static.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                        <ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </ScrollViewer>
+                        <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsGrouping" Value="true"/>
+                                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

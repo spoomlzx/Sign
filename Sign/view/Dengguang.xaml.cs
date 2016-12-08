@@ -27,35 +27,58 @@ namespace Sign
         private DispatcherTimer timer = new DispatcherTimer();
         private string signIn = string.Empty;
         private bool output = false;
+        private SqliteService ss = new SqliteService();
+
+        private List<Baowen> listB = new List<Baowen>();
 
         //串口通信接口
         private SerialPort sp = new SerialPort();
+
         public Dengguang()
         {
             InitializeComponent();
             timer.Tick += new EventHandler(Timer_Tick);
             double ml = sliderMl.Value;
             timer.Interval = TimeSpan.FromMilliseconds(5000 / ml);
-
+            InitPort();
         }
 
         private void InitPort()
         {
-            sp.Close();
-            sp.PortName = "COM12";
-            sp.BaudRate = 9600;
-            sp.DataBits = 8;
-            sp.StopBits = StopBits.One;
-            sp.Parity = Parity.None;
-            if (!sp.IsOpen)
+            string[] ports = SerialPort.GetPortNames();
+            foreach (string port in ports)
             {
-                try
+                combox_com.Items.Add(port);
+            }
+            combox_com.SelectedIndex = ports.Length - 1;
+        }
+
+        private void btn_opencom_Click(object sender, RoutedEventArgs e)
+        {
+            if (combox_com.Items.Count == 0)
+            {
+                InitPort();
+            }
+            else
+            {
+                sp.Close();
+                sp.PortName = combox_com.SelectedValue.ToString();
+                sp.BaudRate = 9600;
+                sp.DataBits = 8;
+                sp.StopBits = StopBits.One;
+                sp.Parity = Parity.None;
+                if (!sp.IsOpen)
                 {
-                    sp.Open();
-                }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show("错误：" + ex.Message);
+                    try
+                    {
+                        sp.Open();
+                        btn_opencom.Content = "灯光已打开";
+                        output = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        //MessageBox.Show("错误：" + ex.Message);
+                    }
                 }
             }
         }
@@ -75,10 +98,6 @@ namespace Sign
             s0[3] = 0x02;
             s0[4] = 0xDF;
             //逐个读取信号，转译成电键信号
-            if (output)
-            {
-                sp.Write(s0, 0, 5);
-            }
             if (signIn[position].Equals('1'))
             {
                 Img_dg.Source = new BitmapImage(new Uri("../image/liang.png", UriKind.Relative));
@@ -115,9 +134,8 @@ namespace Sign
         /// <param name="e"></param>
         private void btnSet_Click(object sender, RoutedEventArgs e)
         {
-            SqliteService ss = new SqliteService();
-            List<Baowen> listB = ss.getListBaowen(10);
-            listBox_bw.ItemsSource = listB;
+            this.listB = this.ss.getListBaowen(10);
+            listBox_bw.DataContext = this.listB;
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
@@ -149,31 +167,14 @@ namespace Sign
             timer.Interval = TimeSpan.FromMilliseconds(5000 / ml);
         }
 
-        /// <summary>
-        /// 选择是否外接灯泡
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void checkBox_Checked(object sender, RoutedEventArgs e)
-        {
-            InitPort();
-            output = true;
-        }
-
-        private void checkBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            output = false;
-        }
 
         private void Shezhibaowen_Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-
             string tag = button.Tag.ToString();
-            textBox1.Text = tag;
+            textBox_pinyin.Text = tag;
             Translate trans = new Translate();
             string sign = trans.PinyinToS(tag);
-            textBox.Text = sign;
             signIn = sign + "2";
         }
 
@@ -181,16 +182,90 @@ namespace Sign
         {
             string baowen = input_baowen.Text;
             string qianming = input_qianming.Text;
-
+            baowen = baowen.Replace("/", "__");
             string pattern = "\\W+";
             Regex rgx = new Regex(pattern);
             string result = rgx.Replace(baowen, " ");
-            textBox1.Text = result;
-
-
+            result = result.Replace("__", "/");
             Translate trans = new Translate();
-            textBox.Text = trans.ChineseToS(result + " @ " + qianming);
-            signIn = textBox.Text + "2";
+            textBox_pinyin.Text = trans.ChineseToChar(result);
+
+            signIn = trans.PinyinToS(trans.ChineseToChar(result) + " @" + qianming) + "2";
         }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                TextBox textBox = e.Source as TextBox;
+                //MessageBox.Show("enter");
+                int id = Convert.ToInt32(textBox.Text);
+                Baowen baowen = this.ss.getBaowen(id);
+                baowen.Bw = baowen.Bw.Replace(" ", "");
+                ContentPresenter cp = textBox.TemplatedParent as ContentPresenter;
+                Border bd = (Border)cp.Parent;
+                //只有修改listboxitem的content以后才能更新控件
+                ListBoxItem item = (ListBoxItem)bd.TemplatedParent;
+                //list.ItemContainerGenerator
+                int index = listBox_bw.ItemContainerGenerator.IndexFromContainer(item);
+                if (baowen.Id != 0)
+                {
+                    this.listB[index] = baowen;
+                    item.Content = baowen;
+                }
+            }
+        }
+
+        private void ListBoxItem_MouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem lbi = (ListBoxItem)sender;
+            EditWindow ew = new EditWindow(lbi);
+            Baowen bw = (Baowen)lbi.Content;
+            ew.Title = "修改报文： " + bw.Id;
+            ew.Closed += new EventHandler(EditWindow_Closed);
+            ew.Show();
+        }
+
+        private void EditWindow_Closed(object sender, EventArgs e)
+        {
+            EditWindow ew = (EditWindow)sender;
+            ListBoxItem lbi = (ListBoxItem)ew.lbi;
+            Baowen bw = (Baowen)lbi.Content;
+            Baowen updateBaowen = this.ss.getBaowen(bw.Id);
+            updateBaowen.Bw = updateBaowen.Bw.Replace(" ", "");
+            lbi.Content = updateBaowen;
+        }
+
+        private void btnOutput_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.SaveFileDialog saveFile1 = new System.Windows.Forms.SaveFileDialog();
+            saveFile1.Filter = "文本文件(.txt)|*.txt";
+            saveFile1.FilterIndex = 1;
+            if (saveFile1.ShowDialog() == System.Windows.Forms.DialogResult.OK && saveFile1.FileName.Length > 0)
+            {
+                System.IO.StreamWriter sw = new System.IO.StreamWriter(saveFile1.FileName, false);
+                try
+                {
+                    sw.WriteLine("当前10条报文："); //只要这里改一下要输出的内容就可以了s
+                    sw.WriteLine("");
+                    foreach (Baowen bw in listB)
+                    {
+                        string temp_bw = bw.Bw.Replace(" ", "");
+                        sw.WriteLine(bw.Id + "." + bw.Bw+"-------"+bw.Qianming);
+                        sw.WriteLine("  " + bw.Pinyin);
+                        sw.WriteLine("");
+                    }
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    sw.Close();
+                }
+            }
+        }
+
     }
 }

@@ -162,6 +162,8 @@ namespace Sign.util
             }
         }
 
+        
+
         public List<Baowen> getListBaowen(int number)
         {
             try
@@ -178,12 +180,41 @@ namespace Sign.util
                     Situation s = new Situation();
                     Baowen b = new Baowen();
                     b.Id = int.Parse(dr["id"].ToString());
-                    b.Bw = dr["bw"].ToString();
+                    string tempbw= dr["bw"].ToString();
+                    b.Bw = tempbw.Replace(" ","");
                     b.Pinyin = dr["pinyin"].ToString();
                     b.Qianming = dr["qianming"].ToString();
                     listB.Add(b);
                 }
                 return listB;
+            }
+            catch (Exception)
+            {
+                //Do any logging operation here if necessary
+                return null;
+            }
+        }
+
+        public Baowen getBaowen(int id)
+        {
+            try
+            {
+                var sql = "select * from baowen where id=@id;";
+                var cmdparams = new List<SQLiteParameter>()
+                {
+                    new SQLiteParameter("id", id)
+                };
+                DataTable dt = sh.Select(sql, cmdparams);
+                Baowen b = new Baowen();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Situation s = new Situation();
+                    b.Id = int.Parse(dr["id"].ToString());
+                    b.Bw = dr["bw"].ToString();
+                    b.Pinyin = dr["pinyin"].ToString();
+                    b.Qianming = dr["qianming"].ToString();
+                }
+                return b;
             }
             catch (Exception)
             {
@@ -428,9 +459,13 @@ namespace Sign.util
 
             set
             {
+                string temp = value.Replace("/", "__");
+                temp = temp.Replace("@", "___");
                 string pattern = "\\W+";
                 Regex rgx = new Regex(pattern);
-                pinyin = rgx.Replace(value, " ");
+                temp = rgx.Replace(temp, " ");
+                pinyin = temp.Replace("___", "@");
+                pinyin = pinyin.Replace("__", "/");
             }
         }
 

@@ -27,17 +27,22 @@
                             <TextBox x:Name="input_qianming" Margin="0,5" Width="45" Height="30" FontSize="16"></TextBox>
                             <Button Content="设置" Height="30" Style="{StaticResource MetroButtonStyle}" Margin="5,5" FontSize="16" Width="60" Click="Button_Click"/>
                         </StackPanel>
-                        <ListBox x:Name="listBox_bw" Margin="0,5,0,0">
+                        <ListBox x:Name="listBox_bw" ItemsSource="{Binding}" Margin="0,5,0,0" Style="{DynamicResource ListBoxStyle_Baowen}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBox Text="{Binding Path=Id}" Margin="0,5,5,5" Height="24" Width="20"></TextBox>
+                                        <TextBox Text="{Binding Path=Id}" Margin="0,5,5,5" Height="24" Width="30" KeyDown="TextBox_KeyDown"></TextBox>
                                         <TextBlock Text="{Binding Path=Bw}" Margin="0,5,5,5" Width="400" Height="24" FontSize="16"></TextBlock>
-                                        <TextBlock Text="{Binding Path=Qianming}" Margin="0,5" Width="45" Height="24" FontSize="16"></TextBlock>
-                                        <Button Content="设置" Tag="{Binding Path=Sign}" Height="24" Style="{StaticResource MetroButtonStyle}" Margin="5,5" FontSize="16" Width="45" Click="Shezhibaowen_Button_Click"/>
+                                        <TextBlock Text="{Binding Path=Qianming}" Margin="0,5" Width="40" Height="24" FontSize="16"></TextBlock>
+                                        <Button Content="设置" Tag="{Binding Path=Sign}" Height="24" Style="{StaticResource MetroButtonStyle}" Margin="0,5,5,5" FontSize="16" Width="45" Click="Shezhibaowen_Button_Click"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
                         </ListBox>
 
                     </StackPanel>
@@ -55,7 +60,8 @@
                         <RowDefinition Height="85*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <CheckBox x:Name="checkBox" Content="是否外接信号灯" FontSize="16" Margin="10,10,25,10" Checked="checkBox_Checked" Unchecked="checkBox_Unchecked"/>
+                        <ComboBox x:Name="combox_com" Margin="10" Width="100"></ComboBox>
+                        <Button x:Name="btn_opencom" Margin="5,10" Content="打开外接灯光" Width="100" Style="{StaticResource MetroButtonStyle}" Click="btn_opencom_Click"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
                         <TextBlock x:Name="textMl" Margin="10,10,0,10" VerticalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="码率：" FontSize="20"/>
@@ -67,9 +73,10 @@
                     </StackPanel>
                 </Grid>
             </local:IconExpander>
-            <TextBox x:Name="textBox" Margin="10,10" TextWrapping="Wrap" Height="150"/>
-            <TextBox x:Name="textBox1" Margin="10,0" TextWrapping="Wrap" Height="30"/>
+            <!--<TextBox x:Name="textBox" Margin="10,10" TextWrapping="Wrap" Height="150"/>-->
+            <TextBox x:Name="textBox_pinyin" Margin="10,0" TextWrapping="Wrap" Height="80"/>
             <Image Name="Img_dg" Margin="30,10,30,30" Source="/Sign;component/image/an.png"></Image>
+            <Button x:Name="btnOutput" Content="导出当前报文" Height="32" Style="{StaticResource MetroButtonStyle}" Margin="5,10" Width="100" Click="btnOutput_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

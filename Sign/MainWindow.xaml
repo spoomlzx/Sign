@@ -9,7 +9,7 @@
         Style="{DynamicResource WindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Background="#e6ebec">
